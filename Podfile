@@ -5,6 +5,6 @@ target 'SmartBPG' do
 pod 'Masonry', '~> 1.0.2'
 pod 'MBProgressHUD', '~> 1.0.0'
 pod 'PNChart', '~> 0.8.9'
-pod 'WCDB', '~> 1.0.1'
+pod 'WCDB'
 
 end
