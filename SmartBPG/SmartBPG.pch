@@ -1,0 +1,22 @@
+//
+//  SmartBPG.pch
+//  SmartBPG
+//
+//  Created by JustFei on 2017/6/22.
+//  Copyright © 2017年 manridy.com. All rights reserved.
+//
+
+#import "BleManager.h"
+#import "ColorConstants.h"
+#import "FrameConstants.h"
+#import "TextConstants.h"
+#import "PNChart.h"
+#import "Masonry.h"
+
+#ifndef SmartBPG_pch
+#define SmartBPG_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* SmartBPG_pch */

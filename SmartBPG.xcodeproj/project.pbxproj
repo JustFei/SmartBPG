@@ -9,10 +9,22 @@
 /* Begin PBXBuildFile section */
 		1032549F1EFB642900716D8E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1032549E1EFB642900716D8E /* main.m */; };
 		103254A21EFB642900716D8E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254A11EFB642900716D8E /* AppDelegate.m */; };
-		103254A51EFB642900716D8E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254A41EFB642900716D8E /* ViewController.m */; };
 		103254A81EFB642900716D8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 103254A61EFB642900716D8E /* Main.storyboard */; };
 		103254AA1EFB642900716D8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 103254A91EFB642900716D8E /* Assets.xcassets */; };
 		103254AD1EFB642900716D8E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 103254AB1EFB642900716D8E /* LaunchScreen.storyboard */; };
+		103254B71EFB6A9900716D8E /* BPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254B61EFB6A9900716D8E /* BPViewController.m */; };
+		103254BD1EFB6AC200716D8E /* BloodPressureContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254BC1EFB6AC200716D8E /* BloodPressureContentView.m */; };
+		103254E91EFB6B2700716D8E /* BleDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254C01EFB6B2700716D8E /* BleDevice.m */; };
+		103254EA1EFB6B2700716D8E /* BleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254C21EFB6B2700716D8E /* BleManager.m */; };
+		103254EB1EFB6B2700716D8E /* BloodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254C51EFB6B2700716D8E /* BloodModel.m */; };
+		103254EF1EFB6B2700716D8E /* manridyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254CD1EFB6B2700716D8E /* manridyModel.m */; };
+		103254F41EFB6B2700716D8E /* SetTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254D71EFB6B2700716D8E /* SetTimeModel.m */; };
+		103254FB1EFB6B2700716D8E /* AnalysisProcotolTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254E61EFB6B2700716D8E /* AnalysisProcotolTool.m */; };
+		103254FC1EFB6B2700716D8E /* NSStringTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254E81EFB6B2700716D8E /* NSStringTool.m */; };
+		10DD3CCF1EFCFD4F0085AFEB /* BPHisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DD3CCE1EFCFD4F0085AFEB /* BPHisViewController.m */; };
+		10DD3CD21EFCFD700085AFEB /* BPHisContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DD3CD11EFCFD700085AFEB /* BPHisContentView.m */; };
+		10DD3CD61EFD00670085AFEB /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DD3CD51EFD00670085AFEB /* SetViewController.m */; };
+		EAC7E43AFDE6ABBD5ACFC7BB /* libPods-SmartBPG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB2C6C7A68A433A0532ABA3 /* libPods-SmartBPG.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +32,42 @@
 		1032549E1EFB642900716D8E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		103254A01EFB642900716D8E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		103254A11EFB642900716D8E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		103254A31EFB642900716D8E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		103254A41EFB642900716D8E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		103254A71EFB642900716D8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		103254A91EFB642900716D8E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		103254AC1EFB642900716D8E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		103254AE1EFB642900716D8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		103254B51EFB6A9900716D8E /* BPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPViewController.h; path = BPViewController/BPViewController.h; sourceTree = "<group>"; };
+		103254B61EFB6A9900716D8E /* BPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPViewController.m; path = BPViewController/BPViewController.m; sourceTree = "<group>"; };
+		103254BB1EFB6AC200716D8E /* BloodPressureContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BloodPressureContentView.h; path = BPViewController/BloodPressureContentView.h; sourceTree = "<group>"; };
+		103254BC1EFB6AC200716D8E /* BloodPressureContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BloodPressureContentView.m; path = BPViewController/BloodPressureContentView.m; sourceTree = "<group>"; };
+		103254BF1EFB6B2700716D8E /* BleDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleDevice.h; sourceTree = "<group>"; };
+		103254C01EFB6B2700716D8E /* BleDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleDevice.m; sourceTree = "<group>"; };
+		103254C11EFB6B2700716D8E /* BleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleManager.h; sourceTree = "<group>"; };
+		103254C21EFB6B2700716D8E /* BleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleManager.m; sourceTree = "<group>"; };
+		103254C41EFB6B2700716D8E /* BloodModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BloodModel.h; sourceTree = "<group>"; };
+		103254C51EFB6B2700716D8E /* BloodModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BloodModel.m; sourceTree = "<group>"; };
+		103254CC1EFB6B2700716D8E /* manridyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = manridyModel.h; sourceTree = "<group>"; };
+		103254CD1EFB6B2700716D8E /* manridyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = manridyModel.m; sourceTree = "<group>"; };
+		103254D61EFB6B2700716D8E /* SetTimeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTimeModel.h; sourceTree = "<group>"; };
+		103254D71EFB6B2700716D8E /* SetTimeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTimeModel.m; sourceTree = "<group>"; };
+		103254E51EFB6B2700716D8E /* AnalysisProcotolTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalysisProcotolTool.h; sourceTree = "<group>"; };
+		103254E61EFB6B2700716D8E /* AnalysisProcotolTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalysisProcotolTool.m; sourceTree = "<group>"; };
+		103254E71EFB6B2700716D8E /* NSStringTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringTool.h; sourceTree = "<group>"; };
+		103254E81EFB6B2700716D8E /* NSStringTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringTool.m; sourceTree = "<group>"; };
+		103254FE1EFB6B7800716D8E /* SmartBPG.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartBPG.pch; sourceTree = "<group>"; };
+		103255001EFB6BE100716D8E /* ColorConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorConstants.h; sourceTree = "<group>"; };
+		103255011EFB6BE100716D8E /* FrameConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameConstants.h; sourceTree = "<group>"; };
+		103255021EFB6BE100716D8E /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
+		103255031EFB6BE100716D8E /* TextConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextConstants.h; sourceTree = "<group>"; };
+		10DD3CCD1EFCFD4F0085AFEB /* BPHisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPHisViewController.h; path = BPHisViewController/BPHisViewController.h; sourceTree = "<group>"; };
+		10DD3CCE1EFCFD4F0085AFEB /* BPHisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPHisViewController.m; path = BPHisViewController/BPHisViewController.m; sourceTree = "<group>"; };
+		10DD3CD01EFCFD700085AFEB /* BPHisContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPHisContentView.h; path = BPHisViewController/BPHisContentView.h; sourceTree = "<group>"; };
+		10DD3CD11EFCFD700085AFEB /* BPHisContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPHisContentView.m; path = BPHisViewController/BPHisContentView.m; sourceTree = "<group>"; };
+		10DD3CD41EFD00670085AFEB /* SetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetViewController.h; path = SetViewController/SetViewController.h; sourceTree = "<group>"; };
+		10DD3CD51EFD00670085AFEB /* SetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetViewController.m; path = SetViewController/SetViewController.m; sourceTree = "<group>"; };
+		5EB2C6C7A68A433A0532ABA3 /* libPods-SmartBPG.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SmartBPG.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		957B0062B87EB1897ECADE47 /* Pods-SmartBPG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartBPG.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SmartBPG/Pods-SmartBPG.debug.xcconfig"; sourceTree = "<group>"; };
+		B6FD421D79A5600D1AF45B2B /* Pods-SmartBPG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartBPG.release.xcconfig"; path = "Pods/Target Support Files/Pods-SmartBPG/Pods-SmartBPG.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAC7E43AFDE6ABBD5ACFC7BB /* libPods-SmartBPG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +87,8 @@
 			children = (
 				1032549C1EFB642900716D8E /* SmartBPG */,
 				1032549B1EFB642900716D8E /* Products */,
+				21732E08A90A19F3E608E662 /* Pods */,
+				662EB00B7E6E9B6607997216 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,13 +105,12 @@
 			children = (
 				103254A01EFB642900716D8E /* AppDelegate.h */,
 				103254A11EFB642900716D8E /* AppDelegate.m */,
-				103254A31EFB642900716D8E /* ViewController.h */,
-				103254A41EFB642900716D8E /* ViewController.m */,
-				103254A61EFB642900716D8E /* Main.storyboard */,
-				103254A91EFB642900716D8E /* Assets.xcassets */,
-				103254AB1EFB642900716D8E /* LaunchScreen.storyboard */,
-				103254AE1EFB642900716D8E /* Info.plist */,
+				10DD3CD31EFD003A0085AFEB /* SetViewController */,
+				10DD3CCC1EFCFD200085AFEB /* BPHisViewController */,
+				103254B41EFB6A7B00716D8E /* BPViewController */,
+				103254BE1EFB6B2700716D8E /* BleManager */,
 				1032549D1EFB642900716D8E /* Supporting Files */,
+				103254FF1EFB6BE100716D8E /* Constants */,
 			);
 			path = SmartBPG;
 			sourceTree = "<group>";
@@ -74,9 +118,110 @@
 		1032549D1EFB642900716D8E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				103254A61EFB642900716D8E /* Main.storyboard */,
+				103254A91EFB642900716D8E /* Assets.xcassets */,
+				103254AB1EFB642900716D8E /* LaunchScreen.storyboard */,
+				103254AE1EFB642900716D8E /* Info.plist */,
 				1032549E1EFB642900716D8E /* main.m */,
+				103254FE1EFB6B7800716D8E /* SmartBPG.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		103254B41EFB6A7B00716D8E /* BPViewController */ = {
+			isa = PBXGroup;
+			children = (
+				103254B51EFB6A9900716D8E /* BPViewController.h */,
+				103254B61EFB6A9900716D8E /* BPViewController.m */,
+				103254BB1EFB6AC200716D8E /* BloodPressureContentView.h */,
+				103254BC1EFB6AC200716D8E /* BloodPressureContentView.m */,
+			);
+			name = BPViewController;
+			sourceTree = "<group>";
+		};
+		103254BE1EFB6B2700716D8E /* BleManager */ = {
+			isa = PBXGroup;
+			children = (
+				103254BF1EFB6B2700716D8E /* BleDevice.h */,
+				103254C01EFB6B2700716D8E /* BleDevice.m */,
+				103254C11EFB6B2700716D8E /* BleManager.h */,
+				103254C21EFB6B2700716D8E /* BleManager.m */,
+				103254C31EFB6B2700716D8E /* DataModel */,
+				103254E41EFB6B2700716D8E /* DataTool */,
+			);
+			path = BleManager;
+			sourceTree = "<group>";
+		};
+		103254C31EFB6B2700716D8E /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				103254C41EFB6B2700716D8E /* BloodModel.h */,
+				103254C51EFB6B2700716D8E /* BloodModel.m */,
+				103254CC1EFB6B2700716D8E /* manridyModel.h */,
+				103254CD1EFB6B2700716D8E /* manridyModel.m */,
+				103254D61EFB6B2700716D8E /* SetTimeModel.h */,
+				103254D71EFB6B2700716D8E /* SetTimeModel.m */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		103254E41EFB6B2700716D8E /* DataTool */ = {
+			isa = PBXGroup;
+			children = (
+				103254E51EFB6B2700716D8E /* AnalysisProcotolTool.h */,
+				103254E61EFB6B2700716D8E /* AnalysisProcotolTool.m */,
+				103254E71EFB6B2700716D8E /* NSStringTool.h */,
+				103254E81EFB6B2700716D8E /* NSStringTool.m */,
+			);
+			path = DataTool;
+			sourceTree = "<group>";
+		};
+		103254FF1EFB6BE100716D8E /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				103255001EFB6BE100716D8E /* ColorConstants.h */,
+				103255011EFB6BE100716D8E /* FrameConstants.h */,
+				103255021EFB6BE100716D8E /* Log.h */,
+				103255031EFB6BE100716D8E /* TextConstants.h */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		10DD3CCC1EFCFD200085AFEB /* BPHisViewController */ = {
+			isa = PBXGroup;
+			children = (
+				10DD3CCD1EFCFD4F0085AFEB /* BPHisViewController.h */,
+				10DD3CCE1EFCFD4F0085AFEB /* BPHisViewController.m */,
+				10DD3CD01EFCFD700085AFEB /* BPHisContentView.h */,
+				10DD3CD11EFCFD700085AFEB /* BPHisContentView.m */,
+			);
+			name = BPHisViewController;
+			sourceTree = "<group>";
+		};
+		10DD3CD31EFD003A0085AFEB /* SetViewController */ = {
+			isa = PBXGroup;
+			children = (
+				10DD3CD41EFD00670085AFEB /* SetViewController.h */,
+				10DD3CD51EFD00670085AFEB /* SetViewController.m */,
+			);
+			name = SetViewController;
+			sourceTree = "<group>";
+		};
+		21732E08A90A19F3E608E662 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				957B0062B87EB1897ECADE47 /* Pods-SmartBPG.debug.xcconfig */,
+				B6FD421D79A5600D1AF45B2B /* Pods-SmartBPG.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		662EB00B7E6E9B6607997216 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5EB2C6C7A68A433A0532ABA3 /* libPods-SmartBPG.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,9 +231,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 103254B11EFB642900716D8E /* Build configuration list for PBXNativeTarget "SmartBPG" */;
 			buildPhases = (
+				B3C4D119B00A3442D33B06E5 /* [CP] Check Pods Manifest.lock */,
 				103254961EFB642900716D8E /* Sources */,
 				103254971EFB642900716D8E /* Frameworks */,
 				103254981EFB642900716D8E /* Resources */,
+				26E410207E87B0213BB74374 /* [CP] Embed Pods Frameworks */,
+				9744BB5943035CBCC98E7B17 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -146,14 +294,73 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		26E410207E87B0213BB74374 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartBPG/Pods-SmartBPG-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9744BB5943035CBCC98E7B17 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SmartBPG/Pods-SmartBPG-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3C4D119B00A3442D33B06E5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		103254961EFB642900716D8E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				103254A51EFB642900716D8E /* ViewController.m in Sources */,
+				103254BD1EFB6AC200716D8E /* BloodPressureContentView.m in Sources */,
+				103254B71EFB6A9900716D8E /* BPViewController.m in Sources */,
+				10DD3CD21EFCFD700085AFEB /* BPHisContentView.m in Sources */,
+				10DD3CD61EFD00670085AFEB /* SetViewController.m in Sources */,
 				103254A21EFB642900716D8E /* AppDelegate.m in Sources */,
+				103254FC1EFB6B2700716D8E /* NSStringTool.m in Sources */,
+				103254F41EFB6B2700716D8E /* SetTimeModel.m in Sources */,
+				10DD3CCF1EFCFD4F0085AFEB /* BPHisViewController.m in Sources */,
+				103254E91EFB6B2700716D8E /* BleDevice.m in Sources */,
+				103254EB1EFB6B2700716D8E /* BloodModel.m in Sources */,
+				103254EF1EFB6B2700716D8E /* manridyModel.m in Sources */,
 				1032549F1EFB642900716D8E /* main.m in Sources */,
+				103254FB1EFB6B2700716D8E /* AnalysisProcotolTool.m in Sources */,
+				103254EA1EFB6B2700716D8E /* BleManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +427,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -262,7 +469,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -271,9 +478,11 @@
 		};
 		103254B21EFB642900716D8E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 957B0062B87EB1897ECADE47 /* Pods-SmartBPG.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CZG37T4ZQ8;
+				GCC_PREFIX_HEADER = SmartBPG/SmartBPG.pch;
 				INFOPLIST_FILE = SmartBPG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = manridy.com.SmartBPG;
@@ -283,9 +492,11 @@
 		};
 		103254B31EFB642900716D8E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B6FD421D79A5600D1AF45B2B /* Pods-SmartBPG.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = CZG37T4ZQ8;
+				GCC_PREFIX_HEADER = SmartBPG/SmartBPG.pch;
 				INFOPLIST_FILE = SmartBPG/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = manridy.com.SmartBPG;
@@ -312,6 +523,7 @@
 				103254B31EFB642900716D8E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
