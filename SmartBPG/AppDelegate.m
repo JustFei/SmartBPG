@@ -28,12 +28,10 @@
     //保存 log
     [self redirectNSLogToDocumentFolder];
     
-    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
     self.window.backgroundColor = WHITE_COLOR;
     
-    //初始化一个tabBar控制器
     BPViewController *vc = [[BPViewController alloc]init];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [nc.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];

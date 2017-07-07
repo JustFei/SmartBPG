@@ -84,10 +84,10 @@ typedef enum : NSUInteger {
 
 /** 当前连接的设备 */
 @property (nonatomic, strong) BleDevice *currentDev;
-@property (nonatomic ,weak) id <BleDiscoverDelegate>discoverDelegate;
-@property (nonatomic ,weak) id <BleConnectDelegate>connectDelegate;
-@property (nonatomic ,assign) BOOL isReconnect;
-@property (nonatomic ,assign) kBLEstate connectState; //support add observer ,abandon @readonly ,don't change it anyway.
+@property (nonatomic, weak) id <BleDiscoverDelegate>discoverDelegate;
+@property (nonatomic, weak) id <BleConnectDelegate>connectDelegate;
+@property (nonatomic, assign) BOOL isReconnect;
+@property (nonatomic, assign) kBLEstate connectState; //support add observer, abandon @readonly, don't change it anyway.
 @property(nonatomic, assign,) SystemBLEState systemBLEstate;
 @property (nonatomic, strong) CBCentralManager *myCentralManager;
 
