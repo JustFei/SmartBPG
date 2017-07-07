@@ -382,7 +382,7 @@ static BleManager *bleManager = nil;
     if ([value bytes] != nil) {
         const unsigned char *hexBytes = [value bytes];
         //命令头字段
-        NSString *headStr = [[NSString stringWithFormat:@"%02x", hexBytes[0]] localizedLowercaseString];
+//        NSString *headStr = [[NSString stringWithFormat:@"%02x", hexBytes[0]] localizedLowercaseString];
 #warning: something
     }
 }

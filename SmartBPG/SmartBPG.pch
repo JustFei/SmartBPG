@@ -12,6 +12,8 @@
 #import "TextConstants.h"
 #import "PNChart.h"
 #import "Masonry.h"
+#import "MaterialControls.h"
+#import "MBProgressHUD.h"
 
 #ifndef SmartBPG_pch
 #define SmartBPG_pch

@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		102D35781F0F25F40004E300 /* SettingHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D356C1F0F25F40004E300 /* SettingHeaderView.m */; };
+		102D357B1F0F25F40004E300 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35711F0F25F40004E300 /* SettingTableViewCell.m */; };
+		102D357D1F0F25F40004E300 /* PeripheralCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35751F0F25F40004E300 /* PeripheralCellModel.m */; };
+		102D357E1F0F25F40004E300 /* SettingCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35771F0F25F40004E300 /* SettingCellModel.m */; };
+		102D35831F0F835A0004E300 /* BindPeripheralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35821F0F835A0004E300 /* BindPeripheralViewController.m */; };
+		102D35961F0F837F0004E300 /* UserInfoSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35911F0F837F0004E300 /* UserInfoSettingModel.m */; };
+		102D35971F0F837F0004E300 /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35931F0F837F0004E300 /* UserInfoTableViewCell.m */; };
+		102D35981F0F837F0004E300 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35951F0F837F0004E300 /* UserInfoViewController.m */; };
+		102D35A31F0F85E60004E300 /* VersionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D359E1F0F85E60004E300 /* VersionModel.m */; };
+		102D35A41F0F85E60004E300 /* VersionUpdateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35A01F0F85E60004E300 /* VersionUpdateTableViewCell.m */; };
+		102D35A51F0F85E60004E300 /* VersionUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35A21F0F85E60004E300 /* VersionUpdateViewController.m */; };
+		102D35A91F0F8B7B0004E300 /* FMDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35A81F0F8B7B0004E300 /* FMDBManager.m */; };
+		102D35AD1F0F8C8D0004E300 /* AlertTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35AC1F0F8C8D0004E300 /* AlertTool.m */; };
+		102D35B01F0F8D110004E300 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 102D35AF1F0F8D110004E300 /* UserInfoModel.m */; };
 		1032549F1EFB642900716D8E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1032549E1EFB642900716D8E /* main.m */; };
 		103254A21EFB642900716D8E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254A11EFB642900716D8E /* AppDelegate.m */; };
 		103254A81EFB642900716D8E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 103254A61EFB642900716D8E /* Main.storyboard */; };
@@ -28,6 +42,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		102D356B1F0F25F40004E300 /* SettingHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingHeaderView.h; sourceTree = "<group>"; };
+		102D356C1F0F25F40004E300 /* SettingHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingHeaderView.m; sourceTree = "<group>"; };
+		102D35701F0F25F40004E300 /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewCell.h; sourceTree = "<group>"; };
+		102D35711F0F25F40004E300 /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCell.m; sourceTree = "<group>"; };
+		102D35741F0F25F40004E300 /* PeripheralCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralCellModel.h; sourceTree = "<group>"; };
+		102D35751F0F25F40004E300 /* PeripheralCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralCellModel.m; sourceTree = "<group>"; };
+		102D35761F0F25F40004E300 /* SettingCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCellModel.h; sourceTree = "<group>"; };
+		102D35771F0F25F40004E300 /* SettingCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCellModel.m; sourceTree = "<group>"; };
+		102D35811F0F835A0004E300 /* BindPeripheralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindPeripheralViewController.h; sourceTree = "<group>"; };
+		102D35821F0F835A0004E300 /* BindPeripheralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindPeripheralViewController.m; sourceTree = "<group>"; };
+		102D35901F0F837F0004E300 /* UserInfoSettingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoSettingModel.h; sourceTree = "<group>"; };
+		102D35911F0F837F0004E300 /* UserInfoSettingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoSettingModel.m; sourceTree = "<group>"; };
+		102D35921F0F837F0004E300 /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewCell.h; sourceTree = "<group>"; };
+		102D35931F0F837F0004E300 /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
+		102D35941F0F837F0004E300 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
+		102D35951F0F837F0004E300 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		102D359D1F0F85E60004E300 /* VersionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionModel.h; sourceTree = "<group>"; };
+		102D359E1F0F85E60004E300 /* VersionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionModel.m; sourceTree = "<group>"; };
+		102D359F1F0F85E60004E300 /* VersionUpdateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionUpdateTableViewCell.h; sourceTree = "<group>"; };
+		102D35A01F0F85E60004E300 /* VersionUpdateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionUpdateTableViewCell.m; sourceTree = "<group>"; };
+		102D35A11F0F85E60004E300 /* VersionUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionUpdateViewController.h; sourceTree = "<group>"; };
+		102D35A21F0F85E60004E300 /* VersionUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionUpdateViewController.m; sourceTree = "<group>"; };
+		102D35A71F0F8B7B0004E300 /* FMDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDBManager.h; sourceTree = "<group>"; };
+		102D35A81F0F8B7B0004E300 /* FMDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDBManager.m; sourceTree = "<group>"; };
+		102D35AB1F0F8C8D0004E300 /* AlertTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertTool.h; sourceTree = "<group>"; };
+		102D35AC1F0F8C8D0004E300 /* AlertTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertTool.m; sourceTree = "<group>"; };
+		102D35AE1F0F8D110004E300 /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
+		102D35AF1F0F8D110004E300 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		1032549A1EFB642900716D8E /* SmartBPG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartBPG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1032549E1EFB642900716D8E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		103254A01EFB642900716D8E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -82,6 +124,83 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		102D356A1F0F25F40004E300 /* SettingContentView */ = {
+			isa = PBXGroup;
+			children = (
+				102D356B1F0F25F40004E300 /* SettingHeaderView.h */,
+				102D356C1F0F25F40004E300 /* SettingHeaderView.m */,
+				102D35701F0F25F40004E300 /* SettingTableViewCell.h */,
+				102D35711F0F25F40004E300 /* SettingTableViewCell.m */,
+			);
+			name = SettingContentView;
+			path = SetViewController/SettingContentView;
+			sourceTree = "<group>";
+		};
+		102D35731F0F25F40004E300 /* SettingModel */ = {
+			isa = PBXGroup;
+			children = (
+				102D35741F0F25F40004E300 /* PeripheralCellModel.h */,
+				102D35751F0F25F40004E300 /* PeripheralCellModel.m */,
+				102D35761F0F25F40004E300 /* SettingCellModel.h */,
+				102D35771F0F25F40004E300 /* SettingCellModel.m */,
+			);
+			name = SettingModel;
+			path = SetViewController/SettingModel;
+			sourceTree = "<group>";
+		};
+		102D35801F0F835A0004E300 /* PeripheralViewController */ = {
+			isa = PBXGroup;
+			children = (
+				102D35811F0F835A0004E300 /* BindPeripheralViewController.h */,
+				102D35821F0F835A0004E300 /* BindPeripheralViewController.m */,
+			);
+			path = PeripheralViewController;
+			sourceTree = "<group>";
+		};
+		102D358F1F0F837F0004E300 /* UserInfoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				102D35901F0F837F0004E300 /* UserInfoSettingModel.h */,
+				102D35911F0F837F0004E300 /* UserInfoSettingModel.m */,
+				102D35921F0F837F0004E300 /* UserInfoTableViewCell.h */,
+				102D35931F0F837F0004E300 /* UserInfoTableViewCell.m */,
+				102D35941F0F837F0004E300 /* UserInfoViewController.h */,
+				102D35951F0F837F0004E300 /* UserInfoViewController.m */,
+			);
+			path = UserInfoViewController;
+			sourceTree = "<group>";
+		};
+		102D359C1F0F85E60004E300 /* VersionUpdateViewController */ = {
+			isa = PBXGroup;
+			children = (
+				102D359D1F0F85E60004E300 /* VersionModel.h */,
+				102D359E1F0F85E60004E300 /* VersionModel.m */,
+				102D359F1F0F85E60004E300 /* VersionUpdateTableViewCell.h */,
+				102D35A01F0F85E60004E300 /* VersionUpdateTableViewCell.m */,
+				102D35A11F0F85E60004E300 /* VersionUpdateViewController.h */,
+				102D35A21F0F85E60004E300 /* VersionUpdateViewController.m */,
+			);
+			path = VersionUpdateViewController;
+			sourceTree = "<group>";
+		};
+		102D35A61F0F8B7B0004E300 /* FMDBManager */ = {
+			isa = PBXGroup;
+			children = (
+				102D35A71F0F8B7B0004E300 /* FMDBManager.h */,
+				102D35A81F0F8B7B0004E300 /* FMDBManager.m */,
+			);
+			path = FMDBManager;
+			sourceTree = "<group>";
+		};
+		102D35AA1F0F8C8D0004E300 /* AlertTool */ = {
+			isa = PBXGroup;
+			children = (
+				102D35AB1F0F8C8D0004E300 /* AlertTool.h */,
+				102D35AC1F0F8C8D0004E300 /* AlertTool.m */,
+			);
+			path = AlertTool;
+			sourceTree = "<group>";
+		};
 		103254911EFB642900716D8E = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +224,11 @@
 			children = (
 				103254A01EFB642900716D8E /* AppDelegate.h */,
 				103254A11EFB642900716D8E /* AppDelegate.m */,
+				102D35AA1F0F8C8D0004E300 /* AlertTool */,
+				102D35A61F0F8B7B0004E300 /* FMDBManager */,
+				102D359C1F0F85E60004E300 /* VersionUpdateViewController */,
+				102D358F1F0F837F0004E300 /* UserInfoViewController */,
+				102D35801F0F835A0004E300 /* PeripheralViewController */,
 				10DD3CD31EFD003A0085AFEB /* SetViewController */,
 				10DD3CCC1EFCFD200085AFEB /* BPHisViewController */,
 				103254B41EFB6A7B00716D8E /* BPViewController */,
@@ -155,6 +279,8 @@
 		103254C31EFB6B2700716D8E /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				102D35AE1F0F8D110004E300 /* UserInfoModel.h */,
+				102D35AF1F0F8D110004E300 /* UserInfoModel.m */,
 				103254C41EFB6B2700716D8E /* BloodModel.h */,
 				103254C51EFB6B2700716D8E /* BloodModel.m */,
 				103254CC1EFB6B2700716D8E /* manridyModel.h */,
@@ -203,6 +329,8 @@
 			children = (
 				10DD3CD41EFD00670085AFEB /* SetViewController.h */,
 				10DD3CD51EFD00670085AFEB /* SetViewController.m */,
+				102D356A1F0F25F40004E300 /* SettingContentView */,
+				102D35731F0F25F40004E300 /* SettingModel */,
 			);
 			name = SetViewController;
 			sourceTree = "<group>";
@@ -348,18 +476,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				103254BD1EFB6AC200716D8E /* BloodPressureContentView.m in Sources */,
+				102D35781F0F25F40004E300 /* SettingHeaderView.m in Sources */,
+				102D35831F0F835A0004E300 /* BindPeripheralViewController.m in Sources */,
 				103254B71EFB6A9900716D8E /* BPViewController.m in Sources */,
 				10DD3CD21EFCFD700085AFEB /* BPHisContentView.m in Sources */,
 				10DD3CD61EFD00670085AFEB /* SetViewController.m in Sources */,
+				102D357B1F0F25F40004E300 /* SettingTableViewCell.m in Sources */,
+				102D35971F0F837F0004E300 /* UserInfoTableViewCell.m in Sources */,
 				103254A21EFB642900716D8E /* AppDelegate.m in Sources */,
+				102D35AD1F0F8C8D0004E300 /* AlertTool.m in Sources */,
+				102D35A51F0F85E60004E300 /* VersionUpdateViewController.m in Sources */,
 				103254FC1EFB6B2700716D8E /* NSStringTool.m in Sources */,
 				103254F41EFB6B2700716D8E /* SetTimeModel.m in Sources */,
 				10DD3CCF1EFCFD4F0085AFEB /* BPHisViewController.m in Sources */,
+				102D357D1F0F25F40004E300 /* PeripheralCellModel.m in Sources */,
+				102D35A91F0F8B7B0004E300 /* FMDBManager.m in Sources */,
 				103254E91EFB6B2700716D8E /* BleDevice.m in Sources */,
 				103254EB1EFB6B2700716D8E /* BloodModel.m in Sources */,
 				103254EF1EFB6B2700716D8E /* manridyModel.m in Sources */,
+				102D357E1F0F25F40004E300 /* SettingCellModel.m in Sources */,
+				102D35981F0F837F0004E300 /* UserInfoViewController.m in Sources */,
+				102D35961F0F837F0004E300 /* UserInfoSettingModel.m in Sources */,
+				102D35B01F0F8D110004E300 /* UserInfoModel.m in Sources */,
+				102D35A41F0F85E60004E300 /* VersionUpdateTableViewCell.m in Sources */,
 				1032549F1EFB642900716D8E /* main.m in Sources */,
 				103254FB1EFB6B2700716D8E /* AnalysisProcotolTool.m in Sources */,
+				102D35A31F0F85E60004E300 /* VersionModel.m in Sources */,
 				103254EA1EFB6B2700716D8E /* BleManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

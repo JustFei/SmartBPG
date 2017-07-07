@@ -34,13 +34,13 @@
     
     BPViewController *vc = [[BPViewController alloc]init];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
-    [nc.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [nc.navigationBar setShadowImage:[UIImage new]];
+//    [nc.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    [nc.navigationBar setShadowImage:[UIImage new]];
     //    nc.navigationBar.clipsToBounds = YES;
     //    [[nc.navigationBar subviews].firstObject setAlpha:1];
 //    nc.navigationBar.translucent = NO;
-    nc.edgesForExtendedLayout = UIRectEdgeNone;
-    nc.extendedLayoutIncludesOpaqueBars = YES;
+//    nc.edgesForExtendedLayout = UIRectEdgeNone;
+//    nc.extendedLayoutIncludesOpaqueBars = YES;
 //    nc.navigationBar.barTintColor = COLOR_WITH_HEX(0x1e88e5, 1);
     //修改title颜色和font
     [nc.navigationBar setTitleTextAttributes:

@@ -22,7 +22,7 @@
     //left
     UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(16, 17, 20, 20)];
     //    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftButton setImage:[UIImage imageNamed:@"all_data_icon"] forState:UIControlStateNormal];
+    [leftButton setImage:[UIImage imageNamed:@"ic_back"] forState:UIControlStateNormal];
     [leftButton addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
     leftButton.tintColor = [UIColor whiteColor];
     [leftButton setTitle:@"fanhui" forState:UIControlStateNormal];

@@ -43,9 +43,20 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
     
+    self.navigationController.automaticallyAdjustsScrollViewInsets = YES;
+    self.navigationController.navigationBar.barTintColor = CLEAR_COLOR;
+    [[self.navigationController.navigationBar subviews].firstObject setAlpha:0];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
     BloodPressureContentView *bpView = [[BloodPressureContentView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:bpView];
     [bpView setBackgroundColor:WHITE_COLOR];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.backgroundColor = CLEAR_COLOR;
+    [[self.navigationController.navigationBar subviews].firstObject setAlpha:0];
 }
 
 #pragma mark - Action
