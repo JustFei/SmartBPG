@@ -33,7 +33,6 @@
 		103254EB1EFB6B2700716D8E /* BloodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254C51EFB6B2700716D8E /* BloodModel.m */; };
 		103254EF1EFB6B2700716D8E /* manridyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254CD1EFB6B2700716D8E /* manridyModel.m */; };
 		103254F41EFB6B2700716D8E /* SetTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254D71EFB6B2700716D8E /* SetTimeModel.m */; };
-		103254FB1EFB6B2700716D8E /* AnalysisProcotolTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254E61EFB6B2700716D8E /* AnalysisProcotolTool.m */; };
 		103254FC1EFB6B2700716D8E /* NSStringTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254E81EFB6B2700716D8E /* NSStringTool.m */; };
 		10DD3CCF1EFCFD4F0085AFEB /* BPHisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DD3CCE1EFCFD4F0085AFEB /* BPHisViewController.m */; };
 		10DD3CD21EFCFD700085AFEB /* BPHisContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DD3CD11EFCFD700085AFEB /* BPHisContentView.m */; };
@@ -92,8 +91,6 @@
 		103254CD1EFB6B2700716D8E /* manridyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = manridyModel.m; sourceTree = "<group>"; };
 		103254D61EFB6B2700716D8E /* SetTimeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetTimeModel.h; sourceTree = "<group>"; };
 		103254D71EFB6B2700716D8E /* SetTimeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetTimeModel.m; sourceTree = "<group>"; };
-		103254E51EFB6B2700716D8E /* AnalysisProcotolTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalysisProcotolTool.h; sourceTree = "<group>"; };
-		103254E61EFB6B2700716D8E /* AnalysisProcotolTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalysisProcotolTool.m; sourceTree = "<group>"; };
 		103254E71EFB6B2700716D8E /* NSStringTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringTool.h; sourceTree = "<group>"; };
 		103254E81EFB6B2700716D8E /* NSStringTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringTool.m; sourceTree = "<group>"; };
 		103254FE1EFB6B7800716D8E /* SmartBPG.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartBPG.pch; sourceTree = "<group>"; };
@@ -226,13 +223,13 @@
 				103254A11EFB642900716D8E /* AppDelegate.m */,
 				102D35AA1F0F8C8D0004E300 /* AlertTool */,
 				102D35A61F0F8B7B0004E300 /* FMDBManager */,
+				103254BE1EFB6B2700716D8E /* BleManager */,
 				102D359C1F0F85E60004E300 /* VersionUpdateViewController */,
 				102D358F1F0F837F0004E300 /* UserInfoViewController */,
 				102D35801F0F835A0004E300 /* PeripheralViewController */,
 				10DD3CD31EFD003A0085AFEB /* SetViewController */,
 				10DD3CCC1EFCFD200085AFEB /* BPHisViewController */,
 				103254B41EFB6A7B00716D8E /* BPViewController */,
-				103254BE1EFB6B2700716D8E /* BleManager */,
 				1032549D1EFB642900716D8E /* Supporting Files */,
 				103254FF1EFB6BE100716D8E /* Constants */,
 			);
@@ -294,8 +291,6 @@
 		103254E41EFB6B2700716D8E /* DataTool */ = {
 			isa = PBXGroup;
 			children = (
-				103254E51EFB6B2700716D8E /* AnalysisProcotolTool.h */,
-				103254E61EFB6B2700716D8E /* AnalysisProcotolTool.m */,
 				103254E71EFB6B2700716D8E /* NSStringTool.h */,
 				103254E81EFB6B2700716D8E /* NSStringTool.m */,
 			);
@@ -500,7 +495,6 @@
 				102D35B01F0F8D110004E300 /* UserInfoModel.m in Sources */,
 				102D35A41F0F85E60004E300 /* VersionUpdateTableViewCell.m in Sources */,
 				1032549F1EFB642900716D8E /* main.m in Sources */,
-				103254FB1EFB6B2700716D8E /* AnalysisProcotolTool.m in Sources */,
 				102D35A31F0F85E60004E300 /* VersionModel.m in Sources */,
 				103254EA1EFB6B2700716D8E /* BleManager.m in Sources */,
 			);

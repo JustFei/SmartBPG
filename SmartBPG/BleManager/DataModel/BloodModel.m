@@ -10,4 +10,9 @@
 
 @implementation BloodModel
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"_highBloodString == %@ _lowBloodString == %@ _bpmString == %@ _electricity == %@", _highBloodString, _lowBloodString, _bpmString, _electricity];
+}
+
 @end

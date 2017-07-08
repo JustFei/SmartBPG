@@ -37,7 +37,6 @@ static NSString *const settingCellID = @"settingCell";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     
     self.view.backgroundColor = BP_HISTORY_BACKGROUND_COLOR;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getElectricity:) name:SET_FIRMWARE object:nil];
     self.headImageView.backgroundColor = WHITE_COLOR;
 }
 

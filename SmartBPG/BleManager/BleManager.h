@@ -21,7 +21,7 @@
  */
 typedef enum{
     kBLEstateDisConnected = 0,
-    kBLEstateDidConnected,
+    kBLEstateDidConnected
 }kBLEstate;
 
 /**
@@ -39,20 +39,25 @@ typedef enum{
     SystemBLEStateUnsupported,
     SystemBLEStateUnauthorized,
     SystemBLEStatePoweredOff,
-    SystemBLEStatePoweredOn,
+    SystemBLEStatePoweredOn
 } SystemBLEState;
 
 /**
- 历史数据模式
- HistoryModeData：具体的历史数据
- HistoryModeCount：历史数据条数
- HistoryModeCurrent：获取当前跑步情况，此条仅仅针对跑步数据有用！！！！
+ 0. 开始测量指令数据
+ 1. 结束测量指令数据
+ 2. 关闭血压计语音提示指令
+ 3. 打开血压计语音提示指令
+ 4. 切换血压计语音提示类型指令(此指令会循环切换血压计支持的语音类型)
+ 5. 设置血压计语音提示类型指令(此指令会指定一类血压计支持的语音类型)
  */
 typedef enum : NSUInteger {
-    HistoryModeData = 0,
-    HistoryModeCount,
-    HistoryModeCurrent,
-} HistoryMode;
+    WriteBPTestCammandStart = 0,
+    WriteBPTestCammandEnd,
+    WriteBPTestCammandCloseAudio,
+    WriteBPTestCammandOpenAudio,
+    WriteBPTestCammandSwitchType,
+    WriteBPTestCammandSettingType
+} WriteBPTestCammand;
 
 #pragma mark - 扫描设备协议
 @protocol BleDiscoverDelegate <NSObject>
@@ -115,7 +120,7 @@ typedef enum : NSUInteger {
 - (void)writeTimeToPeripheral:(NSDate *)currentDate;
 
 /** 血压数据 */
-- (void)writeBloodToPeripheral:(BloodData)bloodData;
+- (void)writeBPCammandToPeripheral:(WriteBPTestCammand)cammand;
 
 
 @end

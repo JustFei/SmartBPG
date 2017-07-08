@@ -29,7 +29,6 @@ static NSString * const UserInfoTableViewCellID = @"UserInfoTableViewCell";
 @property (nonatomic, weak) UITextField *userNameTextField;
 @property (nonatomic, weak) UITableView *infoTableView;
 @property (nonatomic, strong) NSArray *dataArr;
-@property (nonatomic, assign) BOOL isMetric;
 @property (nonatomic, assign) PickerType pickerType;
 @property (nonatomic, strong) UIPickerView *infoPickerView;
 @property (nonatomic, assign) NSInteger currentIndex;
@@ -47,7 +46,6 @@ static NSString * const UserInfoTableViewCellID = @"UserInfoTableViewCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.isMetric = [self isMetricOrImperialSystem];
     self.navigationItem.title = @"用户信息";
     self.view.backgroundColor = BP_HISTORY_BACKGROUND_COLOR;
     
@@ -102,17 +100,6 @@ static NSString * const UserInfoTableViewCellID = @"UserInfoTableViewCell";
         [self.headImageView setImage:[UIImage imageWithData:imageData]];
     }else {
         self.headImageView.backgroundColor = [UIColor whiteColor];
-    }
-}
-
-//判断是否是公制单位
-- (BOOL)isMetricOrImperialSystem
-{
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:LONG_MEASURE]) {
-        BOOL isMetric = [[NSUserDefaults standardUserDefaults] boolForKey:LONG_MEASURE];
-        return isMetric;
-    }else {
-        return NO;
     }
 }
 
@@ -187,20 +174,20 @@ static NSString * const UserInfoTableViewCellID = @"UserInfoTableViewCell";
                 break;
             case PickerTypeHeight:
             {
-                if (self.isMetric) {
+//                if (self.isMetric) {
                     self.infoModel.height = self.heightArr[self.currentIndex];
-                }else {
-                    self.infoModel.height = [NSString stringWithFormat:@"%ld", ((NSString *)self.heightArr[self.currentIndex]).integerValue];
-                }
+//                }else {
+//                    self.infoModel.height = [NSString stringWithFormat:@"%ld", ((NSString *)self.heightArr[self.currentIndex]).integerValue];
+//                }
             }
                 break;
             case PickerTypeWeight:
             {
-                if (self.isMetric) {
+//                if (self.isMetric) {
                     self.infoModel.weight = self.weightArr[self.currentIndex];
-                }else {
-                    self.infoModel.weight = [NSString stringWithFormat:@"%ld", ((NSString *)self.weightArr[self.currentIndex]).integerValue];
-                }
+//                }else {
+//                    self.infoModel.weight = [NSString stringWithFormat:@"%ld", ((NSString *)self.weightArr[self.currentIndex]).integerValue];
+//                }
             }
                 break;
                 
@@ -251,11 +238,11 @@ static NSString * const UserInfoTableViewCellID = @"UserInfoTableViewCell";
             NSInteger index;
             if (![infoText isEqualToString:@"请选择"]) {
                 NSUInteger ind = 0;
-                if (self.isMetric) {
+//                if (self.isMetric) {
                     ind = [self.heightArr indexOfObject:self.infoModel.height];
-                }else {
-                    ind = [self.heightArr indexOfObject:[NSString stringWithFormat:@"%ld", ((NSString *)self.infoModel.height).integerValue]];
-                }
+//                }else {
+//                    ind = [self.heightArr indexOfObject:[NSString stringWithFormat:@"%ld", ((NSString *)self.infoModel.height).integerValue]];
+//                }
                 if(ind == NSNotFound) {
                     index = 0;
                 }else {
@@ -273,12 +260,12 @@ static NSString * const UserInfoTableViewCellID = @"UserInfoTableViewCell";
             NSInteger index;
             if (![infoText isEqualToString:@"请选择"]) {
                 NSUInteger ind = 0;
-                if (self.isMetric) {
+//                if (self.isMetric) {
                     ind = [self.weightArr indexOfObject:self.infoModel.weight];
-                }else {
-                    //                    float weight = [UnitsTool kgAndLb:((NSString *)self.infoModel.weight).integerValue withMode:MetricToImperial];
-                    ind = [self.weightArr indexOfObject:[NSString stringWithFormat:@"%ld", ((NSString *)self.infoModel.weight).integerValue]];
-                }
+//                }else {
+//                    //                    float weight = [UnitsTool kgAndLb:((NSString *)self.infoModel.weight).integerValue withMode:MetricToImperial];
+//                    ind = [self.weightArr indexOfObject:[NSString stringWithFormat:@"%ld", ((NSString *)self.infoModel.weight).integerValue]];
+//                }
                 if(ind == NSNotFound) {
                     index = 0;
                 }else {
@@ -478,6 +465,7 @@ static NSString * const UserInfoTableViewCellID = @"UserInfoTableViewCell";
         textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         textField.textAlignment = NSTextAlignmentCenter;
         textField.font = [UIFont systemFontOfSize:14];
+        textField.textColor = TEXT_WHITE_COLOR_LEVEL4;
         
         [self.view addSubview:textField];
         [textField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -519,25 +507,25 @@ static NSString * const UserInfoTableViewCellID = @"UserInfoTableViewCell";
         NSArray *fieldPlaceholdeArr;
         if (self.infoModel) {
             //如果当前是公制，直接显示公制
-            if (self.isMetric) {
+//            if (self.isMetric) {
                 fieldPlaceholdeArr = @[self.infoModel.gender ? @"女" : @"男",
                                        self.infoModel.age ? self.infoModel.age : @"请选择",
                                        self.infoModel.height ? self.infoModel.height : @"请选择",
                                        self.infoModel.weight ? self.infoModel.weight : @"请选择"];
-            }else {
-                //如果为英制，公制转换成英制在显示
-                float height = self.infoModel.height.integerValue;
-                float weight = self.infoModel.weight.integerValue;
-                fieldPlaceholdeArr = @[self.infoModel.gender ? @"女" : @"男",
-                                       self.infoModel.age ? self.infoModel.age : @"请选择",
-                                       self.infoModel.height ? [NSString stringWithFormat:@"%.0f", height] : @"请选择",
-                                       self.infoModel.weight ? [NSString stringWithFormat:@"%.0f", weight] : @"请选择"];
-            }
+//            }else {
+//                //如果为英制，公制转换成英制在显示
+//                float height = self.infoModel.height.integerValue;
+//                float weight = self.infoModel.weight.integerValue;
+//                fieldPlaceholdeArr = @[self.infoModel.gender ? @"女" : @"男",
+//                                       self.infoModel.age ? self.infoModel.age : @"请选择",
+//                                       self.infoModel.height ? [NSString stringWithFormat:@"%.0f", height] : @"请选择",
+//                                       self.infoModel.weight ? [NSString stringWithFormat:@"%.0f", weight] : @"请选择"];
+//            }
         }else {
             fieldPlaceholdeArr = @[@"请选择",@"请选择",@"请选择",@"请选择"];
         }
         
-        NSArray *unitArr = @[@"",NSLocalizedString(@"岁", nil),self.isMetric ? @"(cm)" : @"(In)",self.isMetric ? @"(kg)" : @"(lb)"];
+        NSArray *unitArr = @[@"",NSLocalizedString(@"岁", nil),@"(cm)" ,@"(kg)"];
         NSMutableArray *mutArr = [NSMutableArray array];
         for (int index = 0; index < nameArr.count; index ++) {
             UserInfoSettingModel *model = [[UserInfoSettingModel alloc] init];

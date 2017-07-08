@@ -121,13 +121,13 @@
     if (!systemConnect) {
         [self.myBleManager scanDevice];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.myBleManager stopScan];
-            
-            if (self.myBleManager.connectState == kBLEstateDisConnected) {
-                //[self.mainVc.stepView.stepLabel setText:@"未连接上设备，点击重试"];
-            }
-        });
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [self.myBleManager stopScan];
+//            
+//            if (self.myBleManager.connectState == kBLEstateDisConnected) {
+//                
+//            }
+//        });
     }
 }
 

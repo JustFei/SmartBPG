@@ -178,7 +178,6 @@
             [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"bindPeripheralName"];
             [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"peripheralUUID"];
             [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isBind"];
-            [[NSUserDefaults standardUserDefaults] setObject:@"--" forKey:ELECTRICITY_INFO_SETTING];
             
             [self setUnBindView];
             MDToast *disconnectToast = [[MDToast alloc] initWithText:@"解绑成功" duration:1];
@@ -274,7 +273,8 @@
 //这里我使用peripheral.identifier作为设备的唯一标识，没有使用mac地址，如果出现id变化导致无法连接的情况，请转成用mac地址作为唯一标识。
 - (void)manridyBLEDidConnectDevice:(BleDevice *)device
 {
-    self.hud.label.text = @"正在同步设置";
+    self.hud.label.text = @"绑定成功";
+    [self.hud hideAnimated:YES afterDelay:2];
     
     [self.myBleMananger stopScan];
     

@@ -35,7 +35,7 @@ static FMDatabase *_fmdb;
         }
         
         //BloodData
-        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists BloodData(id integer primary key,month text, day text, time text, highBlood text, lowBlood text, currentCount text, sumCount text, bpm text);"]];
+        [_fmdb executeUpdate:[NSString stringWithFormat:@"create table if not exists BloodData(id integer primary key,month text, day text, time text, highBlood text, lowBlood text, bpm text);"]];
     }
     
     return self;
@@ -44,7 +44,7 @@ static FMDatabase *_fmdb;
 #pragma mark - BloodPressureData
 - (BOOL)insertBloodModel:(BloodModel *)model
 {
-    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO BloodData(month, day, time, highBlood, lowBlood, currentCount, sumCount, bpm) VALUES ('%@', '%@', '%@', '%@', '%@', '%@', '%@', '%@');", model.monthString, model.dayString, model.timeString, model.highBloodString, model.lowBloodString, model.currentCount, model.sumCount, model.bpmString];
+    NSString *insertSql = [NSString stringWithFormat:@"INSERT INTO BloodData(month, day, time, highBlood, lowBlood, bpm) VALUES ('%@', '%@', '%@', '%@', '%@', '%@');", model.monthString, model.dayString, model.timeString, model.highBloodString, model.lowBloodString,  model.bpmString];
     
     BOOL result = [_fmdb executeUpdate:insertSql];
     if (result) {
@@ -98,8 +98,6 @@ static FMDatabase *_fmdb;
         NSString *time = [set stringForColumn:@"time"];
         NSString *highBlood = [set stringForColumn:@"highBlood"];
         NSString *lowBlood = [set stringForColumn:@"lowBlood"];
-        NSString *currentCount = [set stringForColumn:@"currentCount"];
-        NSString *sumCount = [set stringForColumn:@"sumCount"];
         NSString *bpmString = [set stringForColumn:@"bpm"];
         
         BloodModel *model = [[BloodModel alloc] init];
@@ -109,8 +107,6 @@ static FMDatabase *_fmdb;
         model.timeString = time;
         model.highBloodString = highBlood;
         model.lowBloodString = lowBlood;
-        model.currentCount = currentCount;
-        model.sumCount = sumCount;
         model.bpmString = bpmString;
         
         [arrM addObject:model];

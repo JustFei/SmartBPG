@@ -40,7 +40,7 @@
     if (self) {
         self.frame = frame;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getBPData:) name:GET_BP_DATA object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getBPData:) name:GET_BP_DATA object:nil];
         
         _upView = [[UIView alloc] init];
         _upView.backgroundColor = BP_HISTORY_BACKGROUND_COLOR;
@@ -152,19 +152,19 @@
 
 - (void)getBPData:(NSNotification *)noti
 {
-    manridyModel *model = [noti object];
-    if (model.bloodModel.bloodState == BloodDataHistoryData || model.bloodModel.bloodState == BloodDataUpload) {
-        if ([model.bloodModel.highBloodString isEqualToString:@"0"] && [model.bloodModel.lowBloodString isEqualToString:@"0"]) {
-            [self.BPLabel setText:@"--"];
-            [self.lastTimeLabel setText:@""];
-        }else {
-            [self.BPLabel setText:[NSString stringWithFormat:@"%@/%@", model.bloodModel.highBloodString, model.bloodModel.lowBloodString]];
-            NSString *monthStr = [model.bloodModel.dayString substringWithRange:NSMakeRange(5, 2)];
-            NSString *dayStr = [model.bloodModel.dayString substringWithRange:NSMakeRange(8, 2)];
-            NSString *timeStr = [model.bloodModel.timeString substringWithRange:NSMakeRange(0, 5)];
-            self.lastTimeLabel.text = [NSString stringWithFormat:@"%@月%@日 %@", monthStr, dayStr, timeStr];
-        }
-    }
+//    manridyModel *model = [noti object];
+//    if (model.bloodModel.bloodState == BloodDataHistoryData || model.bloodModel.bloodState == BloodDataUpload) {
+//        if ([model.bloodModel.highBloodString isEqualToString:@"0"] && [model.bloodModel.lowBloodString isEqualToString:@"0"]) {
+//            [self.BPLabel setText:@"--"];
+//            [self.lastTimeLabel setText:@""];
+//        }else {
+//            [self.BPLabel setText:[NSString stringWithFormat:@"%@/%@", model.bloodModel.highBloodString, model.bloodModel.lowBloodString]];
+//            NSString *monthStr = [model.bloodModel.dayString substringWithRange:NSMakeRange(5, 2)];
+//            NSString *dayStr = [model.bloodModel.dayString substringWithRange:NSMakeRange(8, 2)];
+//            NSString *timeStr = [model.bloodModel.timeString substringWithRange:NSMakeRange(0, 5)];
+//            self.lastTimeLabel.text = [NSString stringWithFormat:@"%@月%@日 %@", monthStr, dayStr, timeStr];
+//        }
+//    }
 }
 
 /** 更新视图 */

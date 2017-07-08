@@ -10,7 +10,6 @@
 #import "BleDevice.h"
 #import "manridyModel.h"
 #import "NSStringTool.h"
-#import "AnalysisProcotolTool.h"
 
 static NSString *const kServiceUUID = @"000018f0-0000-1000-8000-00805f9b34fb";
 static NSString *const kWriteCharacteristicUUID = @"00002af1-0000-1000-8000-00805f9b34fb";
@@ -166,20 +165,28 @@ static BleManager *bleManager = nil;
 }
 
 //get blood data
-- (void)writeBloodToPeripheral:(BloodData)bloodData
+- (void)writeBPCammandToPeripheral:(WriteBPTestCammand)cammand
 {
     NSString *protocolStr;
-    switch (bloodData) {
-        case BloodDataLastData:
-            protocolStr = [NSStringTool protocolAddInfo:@"00" head:@"11"];
+    switch (cammand) {
+        case WriteBPTestCammandStart:
+            protocolStr = @"0240dc01a13c";
             break;
-        case BloodDataHistoryData:
-            protocolStr = [NSStringTool protocolAddInfo:@"01" head:@"11"];
+        case WriteBPTestCammandEnd:
+            protocolStr = @"02 40 dc 01 a2 3f";
             break;
-        case BloodDataHistoryCount:
-            protocolStr = [NSStringTool protocolAddInfo:@"02" head:@"11"];
+        case WriteBPTestCammandCloseAudio:
+            protocolStr = @"02 40 dc 01 a3 3e";
             break;
-            
+        case WriteBPTestCammandOpenAudio:
+            protocolStr = @"02 40 dc 01 a4 39";
+            break;
+        case WriteBPTestCammandSwitchType:
+            protocolStr = @"02 40 dc 01 a5 xor";
+            break;
+        case WriteBPTestCammandSettingType:
+            protocolStr = @"02 40 dc 02 a6 num xor";
+            break;
         default:
             break;
     }
@@ -197,7 +204,6 @@ static BleManager *bleManager = nil;
             self.systemBLEstate = 0;
             break;
         case 1:
-            //            message = @"该设备不支持蓝牙功能，请检查系统设置";
             self.systemBLEstate = 1;
             break;
         case 2:
@@ -250,21 +256,6 @@ static BleManager *bleManager = nil;
             }
         }
     }
-    //    }else {
-    //        if ([device.uuidString isEqualToString:kServiceUUID]) {
-    //            device.deviceName = @"X9Plus";
-    //            if (![self.deviceArr containsObject:peripheral]) {
-    //                NSLog(@"+1");
-    //                [self.deviceArr addObject:peripheral];
-    //
-    //                //返回扫描到的设备实例
-    //                if ([self.discoverDelegate respondsToSelector:@selector(manridyBLEDidDiscoverDeviceWithMAC:)]) {
-    //
-    //                    [self.discoverDelegate manridyBLEDidDiscoverDeviceWithMAC:device];
-    //                }
-    //            }
-    //        }
-    //    }
 }
 
 //连接成功
@@ -274,11 +265,6 @@ static BleManager *bleManager = nil;
     peripheral.delegate = self;
     //传入nil会返回所有服务;一般会传入你想要服务的UUID所组成的数组,就会返回指定的服务
     [peripheral discoverServices:nil];
-    
-    //AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    //[delegate.mainVc showFunctionView];
-    
-    //    [self.disConnectView dismissWithClickedButtonIndex:0 animated:NO];
 }
 
 //连接失败
@@ -323,15 +309,17 @@ static BleManager *bleManager = nil;
     
     //    NSLog(@"Discovered characteristic %@", service.characteristics);
     for (CBCharacteristic *characteristic in service.characteristics) {
-        
+        NSLog(@"特征：%@", characteristic.UUID.UUIDString);
         //保存写入特征
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kWriteCharacteristicUUID]]) {
             
             self.writeCharacteristic = characteristic;
+            NSLog(@"保存写入特征：%@", characteristic.UUID.UUIDString);
         }
         
         //保存订阅特征
         if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:kNotifyCharacteristicUUID]]) {
+            NSLog(@"订阅特征：%@", characteristic.UUID.UUIDString);
             self.notifyCharacteristic = characteristic;
             self.connectState = kBLEstateDidConnected;
             if ([self.connectDelegate respondsToSelector:@selector(manridyBLEDidConnectDevice:)]) {
@@ -382,8 +370,64 @@ static BleManager *bleManager = nil;
     if ([value bytes] != nil) {
         const unsigned char *hexBytes = [value bytes];
         //命令头字段
-//        NSString *headStr = [[NSString stringWithFormat:@"%02x", hexBytes[0]] localizedLowercaseString];
-#warning: something
+        NSString *Byte4 = [[NSString stringWithFormat:@"%02x", hexBytes[3]] localizedLowercaseString];
+        if ([Byte4 isEqualToString:@"01"]) {
+            //控制指令格式
+        }else if ([Byte4 isEqualToString:@"02"]) {
+            
+            //血压压力值数据
+            NSLog(@"value.length == %ld", value.length);
+            if (value.length == 7) {
+                NSLog(@"压力值数据");
+                NSData *bpValue = [value subdataWithRange:NSMakeRange(4, 2)];
+                int bp = [NSStringTool parseIntFromData:bpValue];
+                BloodModel *model = [[BloodModel alloc] init];
+                model.bpmString = [NSString stringWithFormat:@"%d", bp];
+                [[NSNotificationCenter defaultCenter] postNotificationName:BP_DATA object:model];
+                NSLog(@"02 : %@", model);
+            }
+        }else if ([Byte4 isEqualToString:@"03"]) {
+            
+            //血压计电量数据
+            if (value.length == 8) {
+                NSLog(@"血压计电量数据");
+                NSData *electricityValue = [value subdataWithRange:NSMakeRange(6, 1)];
+                int electricity = [NSStringTool parseIntFromData:electricityValue];
+                BloodModel *model = [[BloodModel alloc] init];
+                model.electricity = [NSString stringWithFormat:@"%d", electricity];
+                [[NSNotificationCenter defaultCenter] postNotificationName:ELECTRICITY_VALUE object:model];
+                NSLog(@"03 : %@", model);
+            }
+        }else if ([Byte4 isEqualToString:@"0c"]) {
+            
+            //血压测量结果数据
+            if (value.length == 17) {
+                NSLog(@"血压计电量数据");
+                
+                NSString *success = [[NSString stringWithFormat:@"%02x", hexBytes[5]] localizedLowercaseString];
+                if ([success isEqualToString:@"00"]) {
+                    NSData *highValue = [value subdataWithRange:NSMakeRange(5, 2)];
+                    NSData *lowValue = [value subdataWithRange:NSMakeRange(7, 2)];
+                    NSData *hrValue = [value subdataWithRange:NSMakeRange(11, 2)];
+                    int highBp = [NSStringTool parseIntFromData:highValue];
+                    int lowBp = [NSStringTool parseIntFromData:lowValue];
+                    int hr = [NSStringTool parseIntFromData:hrValue];
+                    BloodModel *model = [[BloodModel alloc] init];
+                    model.highBloodString = [NSString stringWithFormat:@"%d", highBp];
+                    model.lowBloodString = [NSString stringWithFormat:@"%d", lowBp];
+                    model.bpmString = [NSString stringWithFormat:@"%d", hr];
+                    model.testSuccess = YES;
+                    [[NSNotificationCenter defaultCenter] postNotificationName:BP_TEST_RESULT object:model];
+                    NSLog(@"0csuccess : %@", model);
+                }else {
+                    BloodModel *model = [[BloodModel alloc] init];
+                    model.testSuccess = NO;
+                    [[NSNotificationCenter defaultCenter] postNotificationName:BP_TEST_RESULT object:model];
+                    NSLog(@"0cfail : %@", model);
+                }
+                
+            }
+        }
     }
 }
 
