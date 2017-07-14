@@ -220,7 +220,7 @@
 {
     if (noti) {
         BloodModel *model = [noti object];
-        self.eleLabel.text = [NSString stringWithFormat:@"电量:%@", model.electricity];
+        self.eleLabel.text = [NSString stringWithFormat:@"电量:%@%%", model.electricity];
     }
 }
 

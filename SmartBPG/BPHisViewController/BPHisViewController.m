@@ -21,13 +21,21 @@
     
     //left
     UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(16, 17, 20, 20)];
-    //    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [leftButton setImage:[UIImage imageNamed:@"ic_back"] forState:UIControlStateNormal];
     [leftButton addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
     leftButton.tintColor = [UIColor whiteColor];
     [leftButton setTitle:@"fanhui" forState:UIControlStateNormal];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     self.navigationItem.leftBarButtonItem = leftItem;
+    
+    //right
+    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(16, 17, 50, 20)];
+    //[leftButton setImage:[UIImage imageNamed:@"ic_back"] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(popViewController) forControlEvents:UIControlEventTouchUpInside];
+    rightButton.tintColor = [UIColor whiteColor];
+    [rightButton setTitle:@"月份" forState:UIControlStateNormal];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
     
     //title
     self.title = @"历史记录";

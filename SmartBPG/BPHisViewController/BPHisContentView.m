@@ -10,11 +10,27 @@
 #import "FMDBManager.h"
 
 @interface BPHisContentView () < PNChartDelegate >
+{
+    NSInteger highBlood;
+    NSInteger lowBlood;
+    NSInteger hr;
+    NSInteger sumHb;
+    NSInteger sumLb;
+    NSInteger sumHr;
+    
+    NSInteger haveDataDays;
+    NSMutableArray *_dateArr;
+    NSMutableArray *_hbDataArr;
+    NSMutableArray *_lbDataArr;
+    NSMutableArray *_hrDataArr;
+    NSMutableArray *_averageDataArr;
+}
 
 @property (nonatomic, strong) UIView *upView;
 @property (nonatomic, strong) UILabel *BPLabel;
 @property (nonatomic, strong) UILabel *lastTimeLabel;
 @property (nonatomic, strong) UIView *view1;
+@property (nonatomic ,strong) UIScrollView *downScrollView;
 @property (nonatomic, strong) PNCircleChart *bpCircleChart;
 @property (nonatomic, weak) PNBarChart *lowBloodChart;
 @property (nonatomic, weak) PNBarChart *highBloodChart;
@@ -64,7 +80,7 @@
         UILabel *todayLabel = [[UILabel alloc] init];
         [todayLabel setText:@"上次测量结果"];
         [todayLabel setTextColor:TEXT_WHITE_COLOR_LEVEL3];
-        [todayLabel setFont:[UIFont systemFontOfSize:20]];
+        [todayLabel setFont:[UIFont systemFontOfSize:15]];
         [self addSubview:todayLabel];
         [todayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.bpCircleChart.mas_centerX);
@@ -114,8 +130,37 @@
             make.left.equalTo(_view1.mas_left).offset(22);
         }];
         
+        self.downScrollView = [[UIScrollView alloc] init];
+        self.downScrollView.contentSize = CGSizeMake(2 * VIEW_FRAME_WIDTH, 0);
+        self.downScrollView.bounces = NO;
+        self.downScrollView.showsHorizontalScrollIndicator = NO;
+        [self addSubview:self.downScrollView];
+        [self.downScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.mas_left);
+            make.right.equalTo(self.mas_right);
+            make.bottom.equalTo(self.mas_bottom);
+        }];
+        
         self.highBloodChart.backgroundColor = CLEAR_COLOR;
         self.lowBloodChart.backgroundColor = CLEAR_COLOR;
+        
+        //获取这个月的天数
+        NSDate *today = [NSDate date]; //Get a date object for today's date
+        NSCalendar *c = [NSCalendar currentCalendar];
+        NSRange days = [c rangeOfUnit:NSCalendarUnitDay
+                               inUnit:NSCalendarUnitMonth
+                              forDate:today];
+        _dateArr = [NSMutableArray array];
+        _lbDataArr = [NSMutableArray array];
+        _hbDataArr = [NSMutableArray array];
+        _hrDataArr = [NSMutableArray array];
+        _averageDataArr = [NSMutableArray array];
+        
+        for (int i = 1; i <= days.length; i ++) {
+            [_dateArr addObject:@(i)];
+        }
+        
+        
     }
     return self;
 }
@@ -123,7 +168,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [self getDataFromDBWithToday];
+    //绘制图表放在这里不会造成UI卡顿
+    [self getHistoryDataWithIntDays:_dateArr.count withDate:[NSDate date]];
 }
 
 - (void)drawProgress:(CGFloat )progress
@@ -139,13 +185,91 @@
 }
 
 #pragma mark - UpdateUI
-- (void)getDataFromDBWithToday
+//#pragma mark - DB
+- (void)getHistoryDataWithIntDays:(NSInteger)days withDate:(NSDate *)date
+{
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    unsigned unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth |  NSCalendarUnitDay;
+    
+    NSDateComponents *components = [calendar components:unitFlags fromDate:date];
+    
+    NSInteger iCurYear = [components year];  //当前的年份
+    
+    NSInteger iCurMonth = [components month];  //当前的月份
+    
+    [_hbDataArr removeAllObjects];
+    [_lbDataArr removeAllObjects];
+    [_hrDataArr removeAllObjects];
+    [_averageDataArr removeAllObjects];
+    
+    haveDataDays = 0;
+    sumHb = 0;
+    sumLb = 0;
+    sumHr = 0;
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        for (NSInteger i = 1; i <= days; i ++) {
+            NSString *dateStr = [NSString stringWithFormat:@"%02ld/%02ld/%02ld",(long)iCurYear ,iCurMonth ,i];
+            NSLog(@"%@",dateStr);
+            highBlood = 0;
+            lowBlood = 0;
+            hr = 0;
+            NSArray *queryArr = [self.myFmdbManager queryBlood:dateStr WithType:QueryTypeWithDay];
+            if (queryArr.count == 0) {
+                [_hbDataArr addObject:@0];
+                [_lbDataArr addObject:@0];
+                [_hrDataArr addObject:@0];
+            }else {
+                
+                for (BloodModel *model in queryArr) {
+                    highBlood += model.highBloodString.integerValue;
+                    lowBlood += model.lowBloodString.integerValue;
+                    hr += model.bpmString.integerValue;
+                }
+                sumHb += highBlood / queryArr.count;
+                sumLb += lowBlood / queryArr.count;
+                sumHr += hr / queryArr.count;
+                //当天的平均高，低压
+                [_hbDataArr addObject:[NSString stringWithFormat:@"%ld",highBlood / queryArr.count]];
+                [_lbDataArr addObject:[NSString stringWithFormat:@"%ld",lowBlood / queryArr.count]];
+                [_hrDataArr addObject:[NSString stringWithFormat:@"%ld",hr / queryArr.count]];
+                haveDataDays ++;
+            }
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSInteger averageHb = sumHb / haveDataDays;
+            NSInteger averageLb = sumLb / haveDataDays;
+            NSInteger averageHr = sumHr / haveDataDays;
+            [self.BPLabel setText:[NSString stringWithFormat:@"%ld/%ld",averageHb , averageLb]];
+            [self.lastTimeLabel setText:[NSString stringWithFormat:@"心率:%ld",averageHr]];
+            double progress = averageHb / 200.000;
+            
+            if (progress <= 1) {
+                [self.bpCircleChart updateChartByCurrent:@(progress * 100)];
+            }else if (progress >= 1) {
+                [self.bpCircleChart updateChartByCurrent:@(100)];
+            }
+            
+            [self.highBloodChart setYValues:_hbDataArr];
+            [self.highBloodChart setXLabels:_dateArr];
+            [self.lowBloodChart setYValues:_lbDataArr];
+            [self.lowBloodChart setXLabels:_dateArr];
+            
+            [self.highBloodChart updateChartData:_hbDataArr];
+            [self.lowBloodChart updateChartData:_lbDataArr];
+        });
+    });
+}
+
+- (void)getDataFromDBWithMonth
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
+    [formatter setDateFormat:@"yyyy/MM"];
     NSString *dayString = [formatter stringFromDate:[NSDate date]];
     
-    NSArray *dbArr = [self.myFmdbManager queryBlood:dayString WithType:QueryTypeWithDay];
+    NSArray *dbArr = [self.myFmdbManager queryBlood:dayString WithType:QueryTypeWithMonth];
     [self updateBPUIWithDataArr:dbArr];
 }
 
@@ -193,11 +317,11 @@
 - (void)showChartViewWithData
 {
     [self.lowBloodChart setXLabels:self.timeArr];
-    [self.lowBloodChart setYValues:self.lbArr];
+//    [self.lowBloodChart setYValues:self.lbArr];
     [self.lowBloodChart updateChartData:self.lbArr];
     
     [self.highBloodChart setXLabels:self.timeArr];
-    [self.highBloodChart setYValues:self.hbArr];
+//    [self.highBloodChart setYValues:self.hbArr];
     [self.highBloodChart updateChartData:self.hbArr];
 }
 
@@ -208,7 +332,7 @@
     [self.lastTimeLabel setText:@""];
 }
 
-#pragma mamrk - 懒加载
+#pragma mark - lazy
 - (PNCircleChart *)bpCircleChart
 {
     if (!_bpCircleChart) {
@@ -235,7 +359,7 @@
         view.yMinValue = 0;
         view.yMaxValue = 200;
         view.showLabel = NO;
-        view.barWidth = 12;
+        view.barWidth = 5;
         view.showChartBorder = NO;
         view.isShowNumbers = NO;
         view.isGradientShow = NO;
@@ -243,8 +367,8 @@
         
         [self addSubview:view];
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left).offset(-11);
-            make.right.equalTo(self.mas_right).offset(-11);
+            make.left.equalTo(self.mas_left).offset(-5);
+            make.right.equalTo(self.mas_right).offset(-5);
             make.bottom.equalTo(self.mas_bottom);
             make.top.equalTo(self.view1.mas_bottom).offset(10);
         }];
@@ -267,7 +391,7 @@
         view.chartMarginBottom = 10.0;
         view.yMinValue = 0;
         view.yMaxValue = 200;
-        view.barWidth = 12;
+        view.barWidth = 5;
         view.showLabel = YES;
         view.showChartBorder = NO;
         view.isShowNumbers = NO;
