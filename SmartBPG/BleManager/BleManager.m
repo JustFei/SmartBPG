@@ -242,7 +242,6 @@ static BleManager *bleManager = nil;
 //查找到正在广播的指定外设
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    
     BleDevice *device = [[BleDevice alloc] initWith:peripheral andAdvertisementData:advertisementData andRSSI:RSSI];
     //当你发现你感兴趣的连接外围设备，停止扫描其他设备，以节省电能。
     if (device.deviceName != nil ) {
@@ -333,8 +332,6 @@ static BleManager *bleManager = nil;
             [peripheral setNotifyValue:YES forCharacteristic:characteristic];
         }
     }
-    
-    
 }
 
 //获得某特征值变化的通知
@@ -382,7 +379,7 @@ static BleManager *bleManager = nil;
                 NSData *bpValue = [value subdataWithRange:NSMakeRange(4, 2)];
                 int bp = [NSStringTool parseIntFromData:bpValue];
                 BloodModel *model = [[BloodModel alloc] init];
-                model.bpmString = [NSString stringWithFormat:@"%d", bp];
+                model.pressureString = [NSString stringWithFormat:@"%d", bp];
                 [[NSNotificationCenter defaultCenter] postNotificationName:BP_DATA object:model];
                 NSLog(@"02 : %@", model);
             }
@@ -402,7 +399,7 @@ static BleManager *bleManager = nil;
             
             //血压测量结果数据
             if (value.length == 17) {
-                NSLog(@"血压计电量数据");
+                NSLog(@"血压测量结果数据");
                 
                 NSString *success = [[NSString stringWithFormat:@"%02x", hexBytes[5]] localizedLowercaseString];
                 if ([success isEqualToString:@"00"]) {
@@ -425,7 +422,6 @@ static BleManager *bleManager = nil;
                     [[NSNotificationCenter defaultCenter] postNotificationName:BP_TEST_RESULT object:model];
                     NSLog(@"0cfail : %@", model);
                 }
-                
             }
         }
     }

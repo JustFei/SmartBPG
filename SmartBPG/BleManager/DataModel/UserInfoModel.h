@@ -20,14 +20,14 @@ typedef NS_ENUM(NSUInteger, Gender) {
 
 @interface UserInfoModel : NSObject < NSCoding >
 
-@property (nonatomic ,copy) NSString *userName;
-@property (nonatomic ,assign) Gender gender;
-@property (nonatomic ,copy) NSString *age;
-@property (nonatomic ,copy) NSString *height;
-@property (nonatomic ,copy) NSString *weight;
-@property (nonatomic ,assign) NSInteger stepLength;
-@property (nonatomic ,assign) NSInteger stepTarget;
-@property (nonatomic ,assign) NSInteger sleepTarget;
+@property (nonatomic, copy) NSString *userName;
+@property (nonatomic, assign) Gender gender;
+@property (nonatomic, copy) NSString *age;
+@property (nonatomic, copy) NSString *height;
+@property (nonatomic, copy) NSString *weight;
+@property (nonatomic, assign) NSInteger stepLength;
+@property (nonatomic, assign) NSInteger stepTarget;
+@property (nonatomic, assign) NSInteger sleepTarget;
 //@property (nonatomic, assign) Metric metric;
 
 + (instancetype)userInfoModelWithUserName:(NSString *)userName andGender:(NSInteger)gender andAge:(NSString *)age andHeight:(NSString *)height andWeight:(NSString *)weight andStepLength:(NSInteger)stepLength andStepTarget:(NSInteger)stepTarget andSleepTarget:(NSInteger)sleepTarget;

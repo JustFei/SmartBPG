@@ -14,10 +14,11 @@
 @property (nonatomic, copy) NSString *electricity;
 //用来按月查找
 @property (nonatomic, copy) NSString *monthString;
-@property (nonatomic ,copy) NSString *dayString;
-@property (nonatomic ,copy) NSString *timeString;
-@property (nonatomic ,copy) NSString *highBloodString;
-@property (nonatomic ,copy) NSString *lowBloodString;
-@property (nonatomic ,copy) NSString *bpmString;
+@property (nonatomic, copy) NSString *dayString;
+@property (nonatomic, copy) NSString *timeString;
+@property (nonatomic, copy) NSString *highBloodString;
+@property (nonatomic, copy) NSString *lowBloodString;
+@property (nonatomic, copy) NSString *bpmString;
+@property (nonatomic, copy) NSString *pressureString;
 
 @end

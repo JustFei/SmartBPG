@@ -7,27 +7,24 @@
 //
 
 #import "BPHisContentView.h"
+#import "FMDBManager.h"
 
 @interface BPHisContentView () < PNChartDelegate >
 
 @property (nonatomic, strong) UIView *upView;
 @property (nonatomic, strong) UILabel *BPLabel;
 @property (nonatomic, strong) UILabel *lastTimeLabel;
-//@property (nonatomic, strong) UILabel *timeLabel;
-//@property (nonatomic, strong) UILabel *highBPLabel;
-//@property (nonatomic, strong) UILabel *lowBPLabel;
 @property (nonatomic, strong) UIView *view1;
 @property (nonatomic, strong) PNCircleChart *bpCircleChart;
-@property (nonatomic, strong) BleManager *myBleManager;
-@property (nonatomic, strong) NSMutableArray *xArr;
 @property (nonatomic, weak) PNBarChart *lowBloodChart;
 @property (nonatomic, weak) PNBarChart *highBloodChart;
 @property (nonatomic, strong) NSMutableArray *timeArr;
 @property (nonatomic, strong) NSMutableArray *hbArr;
 @property (nonatomic, strong) NSMutableArray *lbArr;
-//@property (nonatomic, strong) UILabel *leftTimeLabel;
-//@property (nonatomic, strong) UILabel *rightTimeLabel;
+@property (nonatomic, strong) NSMutableArray *bpmArr;
 @property (nonatomic, strong) UILabel *noDataLabel;
+@property (nonatomic, strong) UILabel *todayBPLabel;
+@property (nonatomic, strong) FMDBManager *myFmdbManager;
 
 
 @end
@@ -39,8 +36,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.frame = frame;
-        
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getBPData:) name:GET_BP_DATA object:nil];
         
         _upView = [[UIView alloc] init];
         _upView.backgroundColor = BP_HISTORY_BACKGROUND_COLOR;
@@ -109,22 +104,26 @@
             make.height.equalTo(@(48 * VIEW_FRAME_WIDTH / 360));
         }];
         
-        UILabel *todayBPLabel = [[UILabel alloc] init];
-        [todayBPLabel setText:@"今日血压"];
-        [todayBPLabel setTextColor:TEXT_BLACK_COLOR_LEVEL3];
-        [todayBPLabel setFont:[UIFont systemFontOfSize:14]];
-        [_view1 addSubview:todayBPLabel];
-        [todayBPLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _todayBPLabel = [[UILabel alloc] init];
+        [_todayBPLabel setText:@"今日血压"];
+        [_todayBPLabel setTextColor:TEXT_BLACK_COLOR_LEVEL3];
+        [_todayBPLabel setFont:[UIFont systemFontOfSize:14]];
+        [_view1 addSubview:_todayBPLabel];
+        [_todayBPLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_view1.mas_centerY);
             make.left.equalTo(_view1.mas_left).offset(22);
         }];
         
         self.highBloodChart.backgroundColor = CLEAR_COLOR;
         self.lowBloodChart.backgroundColor = CLEAR_COLOR;
-        [self.highBloodChart strokeChart];
-        [self.lowBloodChart strokeChart];
     }
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self getDataFromDBWithToday];
 }
 
 - (void)drawProgress:(CGFloat )progress
@@ -136,35 +135,18 @@
 - (void)userClickedOnBarAtIndex:(NSInteger)barIndex
 {
     NSLog(@"点击了 BPBarChart 的%ld", barIndex);
-    //    [self.timeLabel setText:self.timeArr[barIndex]];
-    //    [self.highBPLabel setText:[NSString stringWithFormat:@"%@", self.hbArr[barIndex]]];
-    //    [self.lowBPLabel setText:[NSString stringWithFormat:@"%@", self.lbArr[barIndex]]];
+    [self.todayBPLabel setText:[NSString stringWithFormat:@"血压:%@/%@ 心率:%@ 测量时间:%@", self.hbArr[barIndex], self.lbArr[barIndex], self.bpmArr[barIndex], self.timeArr[barIndex]]];
 }
 
-
-#pragma mark - Action
-- (void)showHisVC:(UIButton *)sender
+#pragma mark - UpdateUI
+- (void)getDataFromDBWithToday
 {
-    //    HeartRateHisViewController *vc = [[HeartRateHisViewController alloc] init];
-    //    vc.vcType = ViewControllerTypeBP;
-    //    [[self findViewController:self].navigationController pushViewController:vc animated:YES];
-}
-
-- (void)getBPData:(NSNotification *)noti
-{
-//    manridyModel *model = [noti object];
-//    if (model.bloodModel.bloodState == BloodDataHistoryData || model.bloodModel.bloodState == BloodDataUpload) {
-//        if ([model.bloodModel.highBloodString isEqualToString:@"0"] && [model.bloodModel.lowBloodString isEqualToString:@"0"]) {
-//            [self.BPLabel setText:@"--"];
-//            [self.lastTimeLabel setText:@""];
-//        }else {
-//            [self.BPLabel setText:[NSString stringWithFormat:@"%@/%@", model.bloodModel.highBloodString, model.bloodModel.lowBloodString]];
-//            NSString *monthStr = [model.bloodModel.dayString substringWithRange:NSMakeRange(5, 2)];
-//            NSString *dayStr = [model.bloodModel.dayString substringWithRange:NSMakeRange(8, 2)];
-//            NSString *timeStr = [model.bloodModel.timeString substringWithRange:NSMakeRange(0, 5)];
-//            self.lastTimeLabel.text = [NSString stringWithFormat:@"%@月%@日 %@", monthStr, dayStr, timeStr];
-//        }
-//    }
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM/dd"];
+    NSString *dayString = [formatter stringFromDate:[NSDate date]];
+    
+    NSArray *dbArr = [self.myFmdbManager queryBlood:dayString WithType:QueryTypeWithDay];
+    [self updateBPUIWithDataArr:dbArr];
 }
 
 /** 更新视图 */
@@ -173,11 +155,12 @@
     /**
      1.更新血压记录的柱状图
      */
-    float sumLowBp = 0;
-    float sumHighBp = 0;
+    //    float sumLowBp = 0;
+    //    float sumHighBp = 0;
     [self.timeArr removeAllObjects];
     [self.hbArr removeAllObjects];
     [self.lbArr removeAllObjects];
+    [self.bpmArr removeAllObjects];
     if (dbArr.count == 0) {
         [self showNoDataView];
         return ;
@@ -185,27 +168,16 @@
         self.noDataLabel.hidden = YES;
         for (NSInteger index = 0; index < dbArr.count; index ++) {
             BloodModel *model = dbArr[index];
-            sumLowBp = sumLowBp + model.lowBloodString.floatValue;
-            sumHighBp = sumHighBp + model.highBloodString.floatValue;
-            [self.timeArr addObject:[model.timeString substringToIndex:5]];
+            [self.timeArr addObject:model.timeString];
             [self.hbArr addObject:@(model.highBloodString.integerValue)];
             [self.lbArr addObject:@(model.lowBloodString.integerValue)];
-            [self.xArr addObject:@""];
-            //            if (index == 0) {
-            //                [self.leftTimeLabel setText:[model.timeString substringToIndex:5]];
-            //            }
-            //            if (index == dbArr.count - 1) {
-            //                [self.rightTimeLabel setText:[model.timeString substringToIndex:5]];
-            //            }
+            [self.bpmArr addObject:@(model.bpmString.integerValue)];
         }
     }
     
     BloodModel *model = dbArr.lastObject;
     [self.BPLabel setText:[NSString stringWithFormat:@"%@/%@",model.highBloodString, model.lowBloodString]];
-    [self.lastTimeLabel setText:[NSString stringWithFormat:@"%@ %@", model.dayString, model.timeString]];
-    //    [self.timeLabel setText:[model.timeString substringToIndex:5]];
-    //    [self.highBPLabel setText:model.highBloodString];
-    //    [self.lowBPLabel setText:model.lowBloodString];
+    [self.lastTimeLabel setText:[NSString stringWithFormat:@"心率: %@", model.bpmString]];
     
     float lowProgress = model.lowBloodString.floatValue / 200;
     
@@ -220,14 +192,12 @@
 
 - (void)showChartViewWithData
 {
-    [self.lowBloodChart setXLabels:self.xArr];
+    [self.lowBloodChart setXLabels:self.timeArr];
     [self.lowBloodChart setYValues:self.lbArr];
-    //    [self.lowBloodChart strokeChart];
     [self.lowBloodChart updateChartData:self.lbArr];
     
-    [self.highBloodChart setXLabels:self.xArr];
+    [self.highBloodChart setXLabels:self.timeArr];
     [self.highBloodChart setYValues:self.hbArr];
-    //    [self.highBloodChart strokeChart];
     [self.highBloodChart updateChartData:self.hbArr];
 }
 
@@ -236,9 +206,6 @@
     self.noDataLabel.hidden = NO;
     [self.BPLabel setText:@"--"];
     [self.lastTimeLabel setText:@""];
-    //    [self.timeLabel setText:@"--"];
-    //    [self.highBPLabel setText:@"--"];
-    //    [self.lowBPLabel setText:@"--"];
 }
 
 #pragma mamrk - 懒加载
@@ -272,6 +239,7 @@
         view.showChartBorder = NO;
         view.isShowNumbers = NO;
         view.isGradientShow = NO;
+        view.barBackgroundColor = CLEAR_COLOR;
         
         [self addSubview:view];
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -291,7 +259,7 @@
     if (!_highBloodChart) {
         PNBarChart *view = [[PNBarChart alloc] init];
         view.delegate = self;
-        [view setStrokeColor:COLOR_WITH_HEX(0x4caf50, 0.54)];
+        [view setStrokeColor:COLOR_WITH_HEX(0x81c784, 0.54)];
         view.yChartLabelWidth = 20.0;
         view.chartMarginLeft = 30.0;
         view.chartMarginRight = 10.0;
@@ -301,9 +269,10 @@
         view.yMaxValue = 200;
         view.barWidth = 12;
         view.showLabel = YES;
-        view.showChartBorder = YES;
-        view.isShowNumbers = YES;
-        view.isGradientShow = YES;
+        view.showChartBorder = NO;
+        view.isShowNumbers = NO;
+        view.isGradientShow = NO;
+        view.barBackgroundColor = CLEAR_COLOR;
         
         [self addSubview:view];
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -344,15 +313,6 @@
     return _lastTimeLabel;
 }
 
-- (NSMutableArray *)xArr
-{
-    if (!_xArr) {
-        _xArr = [NSMutableArray array];
-    }
-    
-    return _xArr;
-}
-
 - (NSMutableArray *)timeArr
 {
     if (!_timeArr) {
@@ -378,6 +338,15 @@
     }
     
     return _lbArr;
+}
+
+- (NSMutableArray *)bpmArr
+{
+    if (!_bpmArr) {
+        _bpmArr = [NSMutableArray array];
+    }
+    
+    return _bpmArr;
 }
 
 - (UILabel *)noDataLabel
@@ -407,6 +376,15 @@
         }
     }
     return target;
+}
+
+- (FMDBManager *)myFmdbManager
+{
+    if (!_myFmdbManager) {
+        _myFmdbManager = [[FMDBManager alloc] initWithPath:DB_NAME];
+    }
+    
+    return _myFmdbManager;
 }
 
 @end

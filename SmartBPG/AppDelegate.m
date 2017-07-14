@@ -34,14 +34,6 @@
     
     BPViewController *vc = [[BPViewController alloc]init];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
-//    [nc.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-//    [nc.navigationBar setShadowImage:[UIImage new]];
-    //    nc.navigationBar.clipsToBounds = YES;
-    //    [[nc.navigationBar subviews].firstObject setAlpha:1];
-//    nc.navigationBar.translucent = NO;
-//    nc.edgesForExtendedLayout = UIRectEdgeNone;
-//    nc.extendedLayoutIncludesOpaqueBars = YES;
-//    nc.navigationBar.barTintColor = COLOR_WITH_HEX(0x1e88e5, 1);
     //修改title颜色和font
     [nc.navigationBar setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont systemFontOfSize:15]}];
@@ -120,14 +112,6 @@
     BOOL systemConnect = [self.myBleManager retrievePeripherals];
     if (!systemConnect) {
         [self.myBleManager scanDevice];
-        
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [self.myBleManager stopScan];
-//            
-//            if (self.myBleManager.connectState == kBLEstateDisConnected) {
-//                
-//            }
-//        });
     }
 }
 
@@ -206,6 +190,17 @@ void UncaughtExceptionHandler(NSException* exception)
         [outFile writeData:[crashString dataUsingEncoding:NSUTF8StringEncoding]];
         [outFile closeFile];
     }
+}
+
+- (BleManager *)myBleManager
+{
+    if (!_myBleManager) {
+        _myBleManager = [BleManager shareInstance];
+        _myBleManager.discoverDelegate = self;
+        _myBleManager.connectDelegate = self;
+    }
+    
+    return _myBleManager;
 }
 
 @end

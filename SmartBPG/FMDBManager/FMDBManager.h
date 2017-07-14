@@ -9,23 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "FMDB.h"
 
-@class SportModel;
-@class HeartRateModel;
 @class UserInfoModel;
-@class SleepModel;
-@class ClockModel;
 @class BloodModel;
-@class BloodO2Model;
-@class SedentaryModel;
-
-//typedef enum : NSUInteger {
-//    SQLTypeStep = 0,
-//    SQLTypeHeartRate,
-//    SQLTypeTemperature,
-//    SQLTypeSleep,
-//    SQLTypeBloodPressure,
-//    SQLTypeUserInfoModel,
-//} SQLType;
 
 typedef enum : NSUInteger {
     QueryTypeAll = 0,
