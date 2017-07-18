@@ -48,6 +48,8 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getEleData:) name:ELECTRICITY_VALUE object:nil];
         //血压测量结果数据
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getBPResultData:) name:BP_TEST_RESULT object:nil];
+        //测量失败的结果
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealWithTestError:) name:BP_TEST_ERROR object:nil];
         
         _upView = [[UIView alloc] init];
         _upView.backgroundColor = BP_HISTORY_BACKGROUND_COLOR;
@@ -155,7 +157,10 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    [self getDataFromDBWithToday];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self getDataFromDBWithToday];
+    });
 }
 
 - (void)drawProgress:(CGFloat )progress
@@ -187,7 +192,6 @@
         hud.label.text = @"设备未连接";
         [hud hideAnimated:YES afterDelay:2];
     }
-    
 }
 
 - (void)showHisVC:(UIButton *)sender
@@ -198,11 +202,13 @@
 }
 
 #pragma mark - NSNotification
+//压力值的通知
 - (void)getBPData:(NSNotification *)noti
 {
     if (noti) {
         BloodModel *model = [noti object];
-        self.BPLabel.text = model.pressureString;
+        [self.BPLabel setText:model.pressureString];
+        NSLog(@"pressureString == %@", model.pressureString);
         [self.startBtn setTitle:@"停止测量" forState:UIControlStateNormal];
         float lowProgress = model.pressureString.floatValue / 200;
         
@@ -212,10 +218,10 @@
             [self drawProgress:1];
         }
         [self.bpCircleChart updateChartByCurrent:@(lowProgress)];
-        [self showChartViewWithData];
     }
 }
 
+//电量的通知
 - (void)getEleData:(NSNotification *)noti
 {
     if (noti) {
@@ -224,11 +230,12 @@
     }
 }
 
+//血压计结果的通知
 - (void)getBPResultData:(NSNotification *)noti
 {
     if (noti) {
         BloodModel *model = [noti object];
-        self.BPLabel.text = [NSString stringWithFormat:@"%@/%@", model.highBloodString, model.lowBloodString];
+        [self.BPLabel setText:[NSString stringWithFormat:@"%@/%@", model.highBloodString, model.lowBloodString]];
         [self.startBtn setTitle:@"开始测量" forState:UIControlStateNormal];
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -247,14 +254,56 @@
     }
 }
 
+//错误通知
+- (void)dealWithTestError:(NSNotification *)noti
+{
+    if (noti) {
+        NSString *errorCode = [noti object];
+        NSString *message;
+        switch (errorCode.integerValue) {
+            case 1:
+                message = @"传感器信号异常";
+                break;
+            case 2:
+                message = @"测量不出结果";
+                break;
+            case 3:
+                message = @"测量结果异常";
+                break;
+            case 4:
+                message = @"腕带过松或漏气";
+                break;
+            case 5:
+                message = @"腕带过紧或气路堵塞";
+                break;
+            case 6:
+                message = @"测量中压力干扰严重";
+                break;
+            case 7:
+                message = @"压力超 300";
+                break;
+                
+            default:
+                break;
+        }
+        if (message.length > 0) {
+            UIAlertController *errorVC = [UIAlertController alertControllerWithTitle:@"错误" message: message preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *sureAc  = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil];
+            [errorVC addAction:sureAc];
+            [[self findViewController:self] presentViewController:errorVC animated:YES completion:nil];
+            [self.startBtn setTitle:@"开始测量" forState:UIControlStateNormal];
+        }
+    }
+}
+
 #pragma mark - UpdateUI
 - (void)getDataFromDBWithToday
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM/dd"];
-    NSString *dayString = [formatter stringFromDate:[NSDate date]];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"yyyy/MM/dd"];
+//    NSString *dayString = [formatter stringFromDate:[NSDate date]];
     
-    NSArray *dbArr = [self.myFmdbManager queryBlood:dayString WithType:QueryTypeWithDay];
+    NSArray *dbArr = [self.myFmdbManager queryBlood:@"7" WithType:QueryTypeWithLastCount];
     [self updateBPUIWithDataArr:dbArr];
 }
 
@@ -274,19 +323,37 @@
         [self showNoDataView];
         return ;
     }else  {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"yyyy/MM/dd"];
+        NSString *dayString = [formatter stringFromDate:[NSDate     date]];
+        
         self.noDataLabel.hidden = YES;
         for (NSInteger index = 0; index < dbArr.count; index ++) {
             BloodModel *model = dbArr[index];
-            [self.timeArr addObject:model.timeString];
-            [self.hbArr addObject:@(model.highBloodString.integerValue)];
-            [self.lbArr addObject:@(model.lowBloodString.integerValue)];
-            [self.bpmArr addObject:@(model.bpmString.integerValue)];
+            if ([model.dayString isEqualToString:dayString]) {
+                [self.timeArr addObject:model.timeString];
+                [self.hbArr addObject:@(model.highBloodString.integerValue)];
+                [self.lbArr addObject:@(model.lowBloodString.integerValue)];
+                [self.bpmArr addObject:@(model.bpmString.integerValue)];
+            }
+        }
+        if (self.timeArr.count == 0) {
+            return;
         }
     }
 
     BloodModel *model = dbArr.lastObject;
-    [self.BPLabel setText:[NSString stringWithFormat:@"%@/%@",model.highBloodString, model.lowBloodString]];
-    [self.lastTimeLabel setText:[NSString stringWithFormat:@"心率: %@", model.bpmString]];
+    if (model.highBloodString.length > 0 && model.lowBloodString.length > 0) {
+        [self.BPLabel setText:[NSString stringWithFormat:@"%@/%@",model.highBloodString, model.lowBloodString]];
+    }else {
+        [self.BPLabel setText:@"--"];
+    }
+    if (model.bpmString.length > 0) {
+        [self.lastTimeLabel setText:[NSString stringWithFormat:@"心率: %@", model.bpmString]];
+    }else {
+        [self.lastTimeLabel setText:@"心率:--"];
+    }
+    
     
     float lowProgress = model.lowBloodString.floatValue / 200;
     
@@ -301,12 +368,11 @@
 
 - (void)showChartViewWithData
 {
+    [self.lowBloodChart strokeChart];
     [self.lowBloodChart setXLabels:self.timeArr];
-    [self.lowBloodChart setYValues:self.lbArr];
     [self.lowBloodChart updateChartData:self.lbArr];
-    
+    [self.highBloodChart strokeChart];
     [self.highBloodChart setXLabels:self.timeArr];
-    [self.highBloodChart setYValues:self.hbArr];
     [self.highBloodChart updateChartData:self.hbArr];
 }
 

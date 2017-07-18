@@ -10,4 +10,8 @@
 
 @interface BPHisContentView : UIView
 
+- (void)getHistoryDataWithIntDays:(NSInteger)days withDate:(NSDate *)date;
+
+//- (void)getDataFromDBWithMonth:(NSDate *)month;
+
 @end

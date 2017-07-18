@@ -34,6 +34,8 @@
 		103254EF1EFB6B2700716D8E /* manridyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254CD1EFB6B2700716D8E /* manridyModel.m */; };
 		103254F41EFB6B2700716D8E /* SetTimeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254D71EFB6B2700716D8E /* SetTimeModel.m */; };
 		103254FC1EFB6B2700716D8E /* NSStringTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 103254E81EFB6B2700716D8E /* NSStringTool.m */; };
+		1052384A1F1DE3A800380546 /* HooDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 105238471F1DE3A800380546 /* HooDatePicker.m */; };
+		1052384B1F1DE3A800380546 /* NSDate+HooDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 105238491F1DE3A800380546 /* NSDate+HooDatePicker.m */; };
 		10DD3CCF1EFCFD4F0085AFEB /* BPHisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DD3CCE1EFCFD4F0085AFEB /* BPHisViewController.m */; };
 		10DD3CD21EFCFD700085AFEB /* BPHisContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DD3CD11EFCFD700085AFEB /* BPHisContentView.m */; };
 		10DD3CD61EFD00670085AFEB /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 10DD3CD51EFD00670085AFEB /* SetViewController.m */; };
@@ -98,6 +100,10 @@
 		103255011EFB6BE100716D8E /* FrameConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameConstants.h; sourceTree = "<group>"; };
 		103255021EFB6BE100716D8E /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
 		103255031EFB6BE100716D8E /* TextConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextConstants.h; sourceTree = "<group>"; };
+		105238461F1DE3A800380546 /* HooDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HooDatePicker.h; sourceTree = "<group>"; };
+		105238471F1DE3A800380546 /* HooDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HooDatePicker.m; sourceTree = "<group>"; };
+		105238481F1DE3A800380546 /* NSDate+HooDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HooDatePicker.h"; sourceTree = "<group>"; };
+		105238491F1DE3A800380546 /* NSDate+HooDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HooDatePicker.m"; sourceTree = "<group>"; };
 		10DD3CCD1EFCFD4F0085AFEB /* BPHisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPHisViewController.h; path = BPHisViewController/BPHisViewController.h; sourceTree = "<group>"; };
 		10DD3CCE1EFCFD4F0085AFEB /* BPHisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPHisViewController.m; path = BPHisViewController/BPHisViewController.m; sourceTree = "<group>"; };
 		10DD3CD01EFCFD700085AFEB /* BPHisContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPHisContentView.h; path = BPHisViewController/BPHisContentView.h; sourceTree = "<group>"; };
@@ -221,6 +227,7 @@
 			children = (
 				103254A01EFB642900716D8E /* AppDelegate.h */,
 				103254A11EFB642900716D8E /* AppDelegate.m */,
+				105238451F1DE3A800380546 /* HooDatePicker */,
 				102D35AA1F0F8C8D0004E300 /* AlertTool */,
 				102D35A61F0F8B7B0004E300 /* FMDBManager */,
 				103254BE1EFB6B2700716D8E /* BleManager */,
@@ -306,6 +313,17 @@
 				103255031EFB6BE100716D8E /* TextConstants.h */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		105238451F1DE3A800380546 /* HooDatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				105238461F1DE3A800380546 /* HooDatePicker.h */,
+				105238471F1DE3A800380546 /* HooDatePicker.m */,
+				105238481F1DE3A800380546 /* NSDate+HooDatePicker.h */,
+				105238491F1DE3A800380546 /* NSDate+HooDatePicker.m */,
+			);
+			path = HooDatePicker;
 			sourceTree = "<group>";
 		};
 		10DD3CCC1EFCFD200085AFEB /* BPHisViewController */ = {
@@ -474,6 +492,7 @@
 				102D35781F0F25F40004E300 /* SettingHeaderView.m in Sources */,
 				102D35831F0F835A0004E300 /* BindPeripheralViewController.m in Sources */,
 				103254B71EFB6A9900716D8E /* BPViewController.m in Sources */,
+				1052384A1F1DE3A800380546 /* HooDatePicker.m in Sources */,
 				10DD3CD21EFCFD700085AFEB /* BPHisContentView.m in Sources */,
 				10DD3CD61EFD00670085AFEB /* SetViewController.m in Sources */,
 				102D357B1F0F25F40004E300 /* SettingTableViewCell.m in Sources */,
@@ -492,6 +511,7 @@
 				102D357E1F0F25F40004E300 /* SettingCellModel.m in Sources */,
 				102D35981F0F837F0004E300 /* UserInfoViewController.m in Sources */,
 				102D35961F0F837F0004E300 /* UserInfoSettingModel.m in Sources */,
+				1052384B1F1DE3A800380546 /* NSDate+HooDatePicker.m in Sources */,
 				102D35B01F0F8D110004E300 /* UserInfoModel.m in Sources */,
 				102D35A41F0F85E60004E300 /* VersionUpdateTableViewCell.m in Sources */,
 				1032549F1EFB642900716D8E /* main.m in Sources */,
@@ -617,6 +637,7 @@
 			baseConfigurationReference = 957B0062B87EB1897ECADE47 /* Pods-SmartBPG.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = CZG37T4ZQ8;
 				GCC_PREFIX_HEADER = SmartBPG/SmartBPG.pch;
 				INFOPLIST_FILE = SmartBPG/Info.plist;
@@ -631,6 +652,7 @@
 			baseConfigurationReference = B6FD421D79A5600D1AF45B2B /* Pods-SmartBPG.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = CZG37T4ZQ8;
 				GCC_PREFIX_HEADER = SmartBPG/SmartBPG.pch;
 				INFOPLIST_FILE = SmartBPG/Info.plist;

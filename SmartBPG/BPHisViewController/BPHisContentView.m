@@ -9,7 +9,8 @@
 #import "BPHisContentView.h"
 #import "FMDBManager.h"
 
-@interface BPHisContentView () < PNChartDelegate >
+@interface BPHisContentView ()
+//< PNChartDelegate >
 {
     NSInteger highBlood;
     NSInteger lowBlood;
@@ -30,7 +31,7 @@
 @property (nonatomic, strong) UILabel *BPLabel;
 @property (nonatomic, strong) UILabel *lastTimeLabel;
 @property (nonatomic, strong) UIView *view1;
-@property (nonatomic ,strong) UIScrollView *downScrollView;
+//@property (nonatomic ,strong) UIScrollView *downScrollView;
 @property (nonatomic, strong) PNCircleChart *bpCircleChart;
 @property (nonatomic, weak) PNBarChart *lowBloodChart;
 @property (nonatomic, weak) PNBarChart *highBloodChart;
@@ -130,16 +131,16 @@
             make.left.equalTo(_view1.mas_left).offset(22);
         }];
         
-        self.downScrollView = [[UIScrollView alloc] init];
-        self.downScrollView.contentSize = CGSizeMake(2 * VIEW_FRAME_WIDTH, 0);
-        self.downScrollView.bounces = NO;
-        self.downScrollView.showsHorizontalScrollIndicator = NO;
-        [self addSubview:self.downScrollView];
-        [self.downScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left);
-            make.right.equalTo(self.mas_right);
-            make.bottom.equalTo(self.mas_bottom);
-        }];
+//        self.downScrollView = [[UIScrollView alloc] init];
+//        self.downScrollView.contentSize = CGSizeMake(2 * VIEW_FRAME_WIDTH, 0);
+//        self.downScrollView.bounces = NO;
+//        self.downScrollView.showsHorizontalScrollIndicator = NO;
+//        [self addSubview:self.downScrollView];
+//        [self.downScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.mas_left);
+//            make.right.equalTo(self.mas_right);
+//            make.bottom.equalTo(self.mas_bottom);
+//        }];
         
         self.highBloodChart.backgroundColor = CLEAR_COLOR;
         self.lowBloodChart.backgroundColor = CLEAR_COLOR;
@@ -160,7 +161,8 @@
             [_dateArr addObject:@(i)];
         }
         
-        
+        //绘制图表放在这里不会造成UI卡顿
+        [self getHistoryDataWithIntDays:_dateArr.count withDate:[NSDate date]];
     }
     return self;
 }
@@ -168,8 +170,6 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    //绘制图表放在这里不会造成UI卡顿
-    [self getHistoryDataWithIntDays:_dateArr.count withDate:[NSDate date]];
 }
 
 - (void)drawProgress:(CGFloat )progress
@@ -247,9 +247,9 @@
             double progress = averageHb / 200.000;
             
             if (progress <= 1) {
-                [self.bpCircleChart updateChartByCurrent:@(progress * 100)];
+                [self.bpCircleChart updateChartByCurrent:@(progress)];
             }else if (progress >= 1) {
-                [self.bpCircleChart updateChartByCurrent:@(100)];
+                [self.bpCircleChart updateChartByCurrent:@(1)];
             }
             
             [self.highBloodChart setYValues:_hbDataArr];
@@ -257,79 +257,85 @@
             [self.lowBloodChart setYValues:_lbDataArr];
             [self.lowBloodChart setXLabels:_dateArr];
             
-            [self.highBloodChart updateChartData:_hbDataArr];
-            [self.lowBloodChart updateChartData:_lbDataArr];
+            [self.highBloodChart strokeChart];
+            [self.lowBloodChart strokeChart];
+//            [self.highBloodChart updateChartData:_hbDataArr];
+//            [self.lowBloodChart updateChartData:_lbDataArr];
         });
     });
 }
 
-- (void)getDataFromDBWithMonth
-{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy/MM"];
-    NSString *dayString = [formatter stringFromDate:[NSDate date]];
-    
-    NSArray *dbArr = [self.myFmdbManager queryBlood:dayString WithType:QueryTypeWithMonth];
-    [self updateBPUIWithDataArr:dbArr];
-}
-
-/** 更新视图 */
-- (void)updateBPUIWithDataArr:(NSArray *)dbArr
-{
-    /**
-     1.更新血压记录的柱状图
-     */
-    //    float sumLowBp = 0;
-    //    float sumHighBp = 0;
-    [self.timeArr removeAllObjects];
-    [self.hbArr removeAllObjects];
-    [self.lbArr removeAllObjects];
-    [self.bpmArr removeAllObjects];
-    if (dbArr.count == 0) {
-        [self showNoDataView];
-        return ;
-    }else  {
-        self.noDataLabel.hidden = YES;
-        for (NSInteger index = 0; index < dbArr.count; index ++) {
-            BloodModel *model = dbArr[index];
-            [self.timeArr addObject:model.timeString];
-            [self.hbArr addObject:@(model.highBloodString.integerValue)];
-            [self.lbArr addObject:@(model.lowBloodString.integerValue)];
-            [self.bpmArr addObject:@(model.bpmString.integerValue)];
-        }
-    }
-    
-    BloodModel *model = dbArr.lastObject;
-    [self.BPLabel setText:[NSString stringWithFormat:@"%@/%@",model.highBloodString, model.lowBloodString]];
-    [self.lastTimeLabel setText:[NSString stringWithFormat:@"心率: %@", model.bpmString]];
-    
-    float lowProgress = model.lowBloodString.floatValue / 200;
-    
-    if (lowProgress <= 1) {
-        [self drawProgress:lowProgress];
-    }else if (lowProgress >= 1) {
-        [self drawProgress:1];
-    }
-    [self.bpCircleChart updateChartByCurrent:@(lowProgress)];
-    [self showChartViewWithData];
-}
-
-- (void)showChartViewWithData
-{
-    [self.lowBloodChart setXLabels:self.timeArr];
-//    [self.lowBloodChart setYValues:self.lbArr];
-    [self.lowBloodChart updateChartData:self.lbArr];
-    
-    [self.highBloodChart setXLabels:self.timeArr];
-//    [self.highBloodChart setYValues:self.hbArr];
-    [self.highBloodChart updateChartData:self.hbArr];
-}
+//- (void)getDataFromDBWithMonth:(NSDate *)month
+//{
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"yyyy/MM"];
+//    NSString *dayString = [formatter stringFromDate:month];
+//    
+//    NSArray *dbArr = [self.myFmdbManager queryBlood:dayString WithType:QueryTypeWithMonth];
+//    [self updateBPUIWithDataArr:dbArr];
+//}
+//
+///** 更新视图 */
+//- (void)updateBPUIWithDataArr:(NSArray *)dbArr
+//{
+//    /**
+//     1.更新血压记录的柱状图
+//     */
+//    //    float sumLowBp = 0;
+//    //    float sumHighBp = 0;
+//    [self.timeArr removeAllObjects];
+//    [self.hbArr removeAllObjects];
+//    [self.lbArr removeAllObjects];
+//    [self.bpmArr removeAllObjects];
+//    if (dbArr.count == 0) {
+//        [self showNoDataView];
+//        return ;
+//    }else  {
+//        self.lowBloodChart.hidden = NO;
+//        self.highBloodChart.hidden = NO;
+//        self.noDataLabel.hidden = YES;
+//        for (NSInteger index = 0; index < dbArr.count; index ++) {
+//            BloodModel *model = dbArr[index];
+//            [self.timeArr addObject:model.timeString];
+//            [self.hbArr addObject:@(model.highBloodString.integerValue)];
+//            [self.lbArr addObject:@(model.lowBloodString.integerValue)];
+//            [self.bpmArr addObject:@(model.bpmString.integerValue)];
+//        }
+//    }
+//    
+//    BloodModel *model = dbArr.lastObject;
+//    [self.BPLabel setText:[NSString stringWithFormat:@"%@/%@",model.highBloodString, model.lowBloodString]];
+//    [self.lastTimeLabel setText:[NSString stringWithFormat:@"心率: %@", model.bpmString]];
+//    
+//    float lowProgress = model.lowBloodString.floatValue / 200;
+//    
+//    if (lowProgress <= 1) {
+//        [self drawProgress:lowProgress];
+//    }else if (lowProgress >= 1) {
+//        [self drawProgress:1];
+//    }
+//    [self.bpCircleChart updateChartByCurrent:@(lowProgress)];
+//    [self showChartViewWithData];
+//}
+//
+//- (void)showChartViewWithData
+//{
+//    [self.lowBloodChart setXLabels:self.timeArr];
+////    [self.lowBloodChart setYValues:self.lbArr];
+//    [self.lowBloodChart updateChartData:self.lbArr];
+//    
+//    [self.highBloodChart setXLabels:self.timeArr];
+////    [self.highBloodChart setYValues:self.hbArr];
+//    [self.highBloodChart updateChartData:self.hbArr];
+//}
 
 - (void)showNoDataView
 {
     self.noDataLabel.hidden = NO;
     [self.BPLabel setText:@"--"];
     [self.lastTimeLabel setText:@""];
+    self.lowBloodChart.hidden = YES;
+    self.highBloodChart.hidden = YES;
 }
 
 #pragma mark - lazy
@@ -349,7 +355,7 @@
 {
     if (!_lowBloodChart) {
         PNBarChart *view = [[PNBarChart alloc] init];
-        view.delegate = self;
+//        view.delegate = self;
         [view setStrokeColor:COLOR_WITH_HEX(0x81c784, 0.54)];
         view.yChartLabelWidth = 20.0;
         view.chartMarginLeft = 30.0;
@@ -367,7 +373,7 @@
         
         [self addSubview:view];
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left).offset(-5);
+            make.left.equalTo(self.mas_left).offset(-25);
             make.right.equalTo(self.mas_right).offset(-5);
             make.bottom.equalTo(self.mas_bottom);
             make.top.equalTo(self.view1.mas_bottom).offset(10);
@@ -382,7 +388,7 @@
 {
     if (!_highBloodChart) {
         PNBarChart *view = [[PNBarChart alloc] init];
-        view.delegate = self;
+//        view.delegate = self;
         [view setStrokeColor:COLOR_WITH_HEX(0x81c784, 0.54)];
         view.yChartLabelWidth = 20.0;
         view.chartMarginLeft = 30.0;
@@ -400,7 +406,7 @@
         
         [self addSubview:view];
         [view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left);
+            make.left.equalTo(self.mas_left).offset(-20);
             make.right.equalTo(self.mas_right);
             make.bottom.equalTo(self.mas_bottom);
             make.top.equalTo(self.view1.mas_bottom).offset(10);

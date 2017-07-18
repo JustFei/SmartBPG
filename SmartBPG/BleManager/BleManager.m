@@ -396,33 +396,41 @@ static BleManager *bleManager = nil;
                 NSLog(@"03 : %@", model);
             }
         }else if ([Byte4 isEqualToString:@"0c"]) {
-            
-            //血压测量结果数据
-            if (value.length == 17) {
-                NSLog(@"血压测量结果数据");
-                
-                NSString *success = [[NSString stringWithFormat:@"%02x", hexBytes[5]] localizedLowercaseString];
-                if ([success isEqualToString:@"00"]) {
-                    NSData *highValue = [value subdataWithRange:NSMakeRange(5, 2)];
-                    NSData *lowValue = [value subdataWithRange:NSMakeRange(7, 2)];
-                    NSData *hrValue = [value subdataWithRange:NSMakeRange(11, 2)];
-                    int highBp = [NSStringTool parseIntFromData:highValue];
-                    int lowBp = [NSStringTool parseIntFromData:lowValue];
-                    int hr = [NSStringTool parseIntFromData:hrValue];
-                    BloodModel *model = [[BloodModel alloc] init];
-                    model.highBloodString = [NSString stringWithFormat:@"%d", highBp];
-                    model.lowBloodString = [NSString stringWithFormat:@"%d", lowBp];
-                    model.bpmString = [NSString stringWithFormat:@"%d", hr];
-                    model.testSuccess = YES;
-                    [[NSNotificationCenter defaultCenter] postNotificationName:BP_TEST_RESULT object:model];
-                    NSLog(@"0csuccess : %@", model);
-                }else {
-                    BloodModel *model = [[BloodModel alloc] init];
-                    model.testSuccess = NO;
-                    [[NSNotificationCenter defaultCenter] postNotificationName:BP_TEST_RESULT object:model];
-                    NSLog(@"0cfail : %@", model);
+            //error(1c) or success(other)
+            NSString *Byte5 = [[NSString stringWithFormat:@"%02x", hexBytes[4]] localizedLowercaseString];
+            if ([Byte5 isEqualToString:@"1c"]) {
+                //血压测量结果数据
+                if (value.length == 17) {
+                    NSLog(@"血压测量结果数据");
+                    
+                    NSString *success = [[NSString stringWithFormat:@"%02x", hexBytes[5]] localizedLowercaseString];
+                    if ([success isEqualToString:@"00"]) {
+                        NSData *highValue = [value subdataWithRange:NSMakeRange(5, 2)];
+                        NSData *lowValue = [value subdataWithRange:NSMakeRange(7, 2)];
+                        NSData *hrValue = [value subdataWithRange:NSMakeRange(11, 2)];
+                        int highBp = [NSStringTool parseIntFromData:highValue];
+                        int lowBp = [NSStringTool parseIntFromData:lowValue];
+                        int hr = [NSStringTool parseIntFromData:hrValue];
+                        BloodModel *model = [[BloodModel alloc] init];
+                        model.highBloodString = [NSString stringWithFormat:@"%d", highBp];
+                        model.lowBloodString = [NSString stringWithFormat:@"%d", lowBp];
+                        model.bpmString = [NSString stringWithFormat:@"%d", hr];
+                        model.testSuccess = YES;
+                        [[NSNotificationCenter defaultCenter] postNotificationName:BP_TEST_RESULT object:model];
+                        NSLog(@"0csuccess : %@", model);
+                    }else {
+                        BloodModel *model = [[BloodModel alloc] init];
+                        model.testSuccess = NO;
+                        [[NSNotificationCenter defaultCenter] postNotificationName:BP_TEST_RESULT object:model];
+                        NSLog(@"0cfail : %@", model);
+                    }
                 }
+            }else {
+                //error deal
+                NSString *Byte13 = [[NSString stringWithFormat:@"%02x", hexBytes[12]] localizedLowercaseString];
+                [[NSNotificationCenter defaultCenter] postNotificationName:BP_TEST_ERROR object:Byte13];
             }
+            
         }
     }
 }

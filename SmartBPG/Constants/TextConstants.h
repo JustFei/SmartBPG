@@ -19,6 +19,8 @@
 #define ELECTRICITY_VALUE @"ElectricityValue"
 //测量结束的结果
 #define BP_TEST_RESULT @"BpTestResult"
+//测量失败的结果
+#define BP_TEST_ERROR @"BpTestError"
 
 //头像保存
 #define USER_HEADIMAGE_SETTING @"UserHeadimageSetting"
